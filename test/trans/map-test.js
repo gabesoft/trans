@@ -154,6 +154,12 @@ module.exports = function (util) {
             assert.deepEqual(t, { a: 2 });
         });
 
+        it('should behave like map if the specified field is null', function () {
+            var o = [ 1, 2 ]
+              , t = trans(o).mapf(null, 'length').value();
+            assert.strictEqual(t, 2);
+        });
+
         it('should map the object at the given field - array1a', function () {
             var o = { a: { b: [ 1, 2, 3 ] } }
               , t = trans(o).mapf('a.b.', square, [add, 1]).value();

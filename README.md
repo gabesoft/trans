@@ -122,7 +122,7 @@ and it replaces it with the result returned by the last transformer function.
 Here is a simple example:
 
 ``` javascript
-trans('2.32').map(parseFloat, square, [add, 10]).value();
+trans('2.32').map(parseFloat, square, [ add, 10 ]).value();
 ``` 
 => ``15.3824``  
 
@@ -130,7 +130,7 @@ Field names, and functions that exist on the object being transformed
 can be specified as transformers
 
 ``` javascript
-trans('transform me').map('toUpperCase', ['substring', 0, 5]).value();
+trans('transform me').map('toUpperCase', [ 'substring', 0, 5 ]).value();
 ```
 => ``'TRANS'``  
 
@@ -140,7 +140,7 @@ trans({ a: 1 }).map('a').value();
 => ``1``  
 
 ``` javascript
-trans({ a: 'foo' }).map('a', 'toUpperCase', ['charAt', 1]).value();
+trans({ a: 'foo' }).map('a', 'toUpperCase', [ 'charAt', 1 ]).value();
 ```
 => ``'O'``  
 
@@ -189,6 +189,25 @@ trans([ 1, 2 ]).map('length', intToName).value();
 => ``'two'``
 
 ### mapf(field, *transformers)
+
+This is exactly like ``map`` but it is applied at a specified field. In fact if a null
+field is specified the result is identical to calling ``map``. Otherwise, the input
+to the first transformer function will be the value at the specified field and the result
+of the last transformer will replace the value at that field.
+  
+Field names can contain dots like ``a.b.c`` to reach within nested objects. If the value
+at the field is an array adding one last dot at the end of the field will indicate that
+we want to iterate the array.
+
+``` javascript
+trans(1).mapf(null, [ add, 1 ]).value();
+```
+=> ``2``  
+
+``` javascript
+trans({ a: 1 }).mapf('a', [ add, 1 ]).value();
+```
+=> ``{ a: 2 }``  
 
 ### mapff(src, dst, *transformers)
 
