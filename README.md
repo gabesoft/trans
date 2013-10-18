@@ -15,6 +15,10 @@ _/  |_____________    ____   ______
 
 ### Quickstart
 
+Using trans is easy. First wrap the data to be transformed by calling ``trans(data)``,  
+as below, and then call transformation methods on the wrapper. Multiple transformation  
+methods can be chained. When done call ``value()`` to get back the raw data that has been transformed.
+
 Here's a quick taste. Assuming we have an object that looks like this  
 
 ``` javascript
@@ -22,18 +26,17 @@ var data = [
       { a: { b: 'abc' }, { c: 1 } }
     , { a: { b: 'ade' }, { c: 2 } }
     , { a: { b: 'def' }, { c: 3 } }
-    , { a: { b: 'ghk' }, { c: 4 } }
-    ];
+    , { a: { b: 'ghk' }, { c: 4 } } ];
 ```
 
-We can use trans to group by the first letter capitalized of the a.b field  
+We can use trans to group the data array by the first letter capitalized of the a.b field  
 and set the group value to a.c as follows  
 
 ``` javascript
 
 var trans = require('trans');
 var value = trans(data)
-    .group('a.b', 'c', ['charAt', 0], 'toUpperCase')
+    .group('a.b', 'a.c', ['charAt', 0], 'toUpperCase')
     .value();
 
 ```
