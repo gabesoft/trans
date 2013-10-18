@@ -178,6 +178,16 @@ trans([ { a: [ 1, 2 ] }, { a: [ 3 ] }, { a: [ 4, 5, 6 ] } ])
 ```
 => ``[ [ 1, 4 ], [ 9 ], [ 16, 25, 36 ] ]``  
 
+Objects can be specified as transformers as well. When that is the case the result of 
+the previous transformation will be used as an index into the transformer object.
+
+``` javascript
+var intToName = { 1: 'one', 2: 'two', 3: 'three' };
+
+trans([ 1, 2 ]).map('length', intToName).value();
+```
+=> ``'two'``
+
 ### mapf(field, *transformers)
 
 ### mapff(src, dst, *transformers)
