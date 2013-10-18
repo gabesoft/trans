@@ -57,7 +57,7 @@ The result in both cases is:
 
 ## Quickstart
 
-Using trans is easy. First wrap the data to be transformed by calling ``trans(data)``,  
+Using trans is easy, first wrap the data to be transformed by calling ``trans(data)``,  
 as below, and then call transformation methods on the wrapper. Multiple transformation  
 methods can be chained. When done call ``value()`` to get back the raw data that has been transformed.
 
