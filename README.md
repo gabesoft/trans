@@ -9,13 +9,15 @@ _/  |_____________    ____   ______
 
 *The ultimate object transformer*
 
-### Overview
+## Overview
 
-Trans has one single purpose: make it super easy to transform complex json objects.  
+####The purpose of trans is to make it super easy to transform complex json objects
   
-It allows reaching within objects with field names such as ``a.b.c`` and it does the 
+It allows specifying composite field names such as ``a.b.c`` and it does the 
 right thing even across multiple arrays.  
-So the field above could be used to modify or extract a value from an object that looks like this
+For example, the field above could be used to modify or extract a value from an object 
+that looks like this
+
 ``` javascript 
 { a: { b: { c: 1 } } }
 ```
@@ -28,7 +30,7 @@ or like this
 [ { a: { b: [ { c: 1 }, { c: 2 } ] } } ]
 ```
 
-### Quickstart
+## Quickstart
 
 Using trans is easy. First wrap the data to be transformed by calling ``trans(data)``,  
 as below, and then call transformation methods on the wrapper. Multiple transformation  
@@ -62,4 +64,4 @@ Now value looks like this
   [ { key; 'A', value: [ 1, 2 ] }, { key: 'D', value: [ 3 ] }, { key: 'G', value: [ 4 ] } ];
 ```
 
-### Methods
+## Methods
