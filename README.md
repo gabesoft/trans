@@ -11,7 +11,11 @@ _/  |_____________    ____   ______
 
 ### Overview
 
-### Motivation
+Trans has one single purpose: make it super easy to transform complex json objects.  
+It allows reaching within objects with field names such as ``a.b.c`` and it does the 
+right thing even across arrays. So the field above could modify or extract a value from  
+an object that looks like this ``{ a: { b: { c: 1 } } }`` but also if the object looks  
+like this ``{ a: [ { b: { c: 1 } }, { b: { c: 2 } } ] }``.
 
 ### Quickstart
 
