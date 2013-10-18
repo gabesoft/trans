@@ -50,7 +50,10 @@ trans({ a: [ 1, 2 ] }).mapf('a', function(obj) {
     return square(mul(add(obj.length, 5), 10));
 });
 ```
-The result in both cases is ``{ a: 4900 }``
+The result in both cases is:
+``` javascript
+{ a: 4900 }
+```
 
 ## Quickstart
 
