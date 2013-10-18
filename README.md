@@ -115,3 +115,13 @@ var value = trans(data)
 ```
 
 ### map(*transformers)
+
+### mapf(field, *transformers)
+
+### mapff(sourceField, destinationField, *transformers)
+
+### group(groupField, valueField, *transformers)
+
+### groupf(field, groupField, valueField, *transformers)
+
+### groupff(sourceField, destinationField, groupField, valueField, *transformers)
