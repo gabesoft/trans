@@ -14,8 +14,8 @@ _/  |_____________    ____   ______
 Trans has one single purpose: make it super easy to transform complex json objects.  
   
 It allows reaching within objects with field names such as ``a.b.c`` and it does the 
-right thing even across arrays. So the field above could modify or extract a value from  
-an object that looks like this
+right thing even across multiple arrays.  
+So the field above could be used to modify or extract a value from an object that looks like this
 ``` javascript 
 { a: { b: { c: 1 } } }
 ```
@@ -24,7 +24,7 @@ but also if the object looks like this
 { a: [ { b: { c: 1 } }, { b: { c: 2 } } ] }
 ```
 or like this
-```
+``` javascript
 [ { a: { b: [ { c: 1 }, { c: 2 } ] } } ]
 ```
 
@@ -62,4 +62,4 @@ Now value looks like this
   [ { key; 'A', value: [ 1, 2 ] }, { key: 'D', value: [ 3 ] }, { key: 'G', value: [ 4 ] } ];
 ```
 
-### Metods
+### Methods
