@@ -195,9 +195,7 @@ field is specified the result is identical to calling ``map``. Otherwise, the in
 to the first transformer function will be the value at the specified field and the result
 of the last transformer will replace the value at that field.
   
-Field names can contain dots like ``a.b.c`` to reach within nested objects. If the value
-at the field is an array adding one last dot at the end of the field will indicate that
-we want to iterate the array.
+Field names can contain dots like ``a.b.c`` to reach within nested objects. 
 
 ``` javascript
 trans(1).mapf(null, [ add, 1 ]).value();
@@ -208,6 +206,19 @@ trans(1).mapf(null, [ add, 1 ]).value();
 trans({ a: 1 }).mapf('a', [ add, 1 ]).value();
 ```
 => ``{ a: 2 }``  
+
+If the value at the field is an array adding one last dot at the end of the field name 
+will indicate that we want to iterate the array.
+
+``` javascript
+trans({ a: { b: [ 1, 2 ] } }).mapf('a.b', 'length').value();
+```
+=> ``{ a: { b: 2 } }``  
+
+``` javascript
+trans({ a: { b: [ 1, 2 ] } }).mapf('a.b.', [ add, 1 ]).value();
+```
+=> ``{ a: { b: [ 2, 3 ] } }``  
 
 ### mapff(src, dst, *transformers)
 
