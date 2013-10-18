@@ -116,6 +116,62 @@ var value = trans(data)
 
 ### map(*transformers)
 
+This is the main transformation method. It passes the entire raw object to the transformers 
+and it replaces it with the result returned by the last transformer function.
+  
+Here are a few simple examples:
+
+``` javascript
+trans('2.32').map(parseFloat, square, [add, 10]).value();
+``` 
+=> ``15.3824``  
+
+``` javascript
+trans('transform me').map('toUpperCase', ['substring', 0, 5]).value();
+```
+=> ``'TRANS'``  
+
+``` javascript
+trans({ a: 1 }).map('a').value();
+```
+=> ``1``  
+
+``` javascript
+trans({ a: 'foo' }).map('a', 'toUpperCase', ['charAt', 1]).value();
+```
+=> ``'O'``  
+
+Field names can be used as transformers as well like in the above example. 
+If the current object is an array and we would like to iterate it and apply 
+transformers to each item in the array a '.' transformer needs to be specified first. 
+
+Here are a few array examples:
+
+``` javascript
+trans([ 1, 2, 3 ]).map('length').value();
+```
+=> ``3``  
+
+``` javascript
+trans([ 1, 2, 3 ]).map('.', square).value();
+```
+=> ``[ 1, 4, 9 ]``  
+
+``` javascript
+trans([ [ 1, 2 ], [ 3 ], [ 4, 5, 6 ] ]).map('.', sum).value();
+```
+=> ``[ 3, 3, 15 ]``  
+
+``` javascript
+trans([ { a: [ 1, 2 ] }, { a: [ 3 ] }, { a: [ 4, 5, 6 ] } ]).map('.', 'a', 'length').value();
+```
+=> ``[ 2, 1, 3 ]``  
+
+``` javascript
+trans([ { a: [ 1, 2 ] }, { a: [ 3 ] }, { a: [ 4, 5, 6 ] } ]).map('.', 'a', '.', square).value();
+```
+=> ``[ [ 1, 4 ], [ 9 ], [ 16, 25, 36 ] ]``  
+
 ### mapf(field, *transformers)
 
 ### mapff(src, dst, *transformers)
