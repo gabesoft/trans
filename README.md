@@ -39,8 +39,9 @@ The transformers specified as parameters to the transformation methods can be fu
 field names, or even objects (which will be used as hash maps). The functions that are not properties
 on the object being transformed are assumed to take that object as the first parameter. But they can 
 take additional parameters as well. In those case the function should be specified as an array. 
+When multiple transformers are specified the result of each one is piped over to the next one.
   
-Here are some examples which result in an identical outcome:
+Here are a couple of examples which result in an identical outcome:
 ``` javascript
 trans({ a: [ 1, 2 ] }).mapf('a', 'length', [add, 5], [mul, 10], square);
 ```
