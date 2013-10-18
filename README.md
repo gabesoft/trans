@@ -13,7 +13,7 @@ _/  |_____________    ____   ______
 
 ####The purpose of trans is to make it super easy to transform complex json objects
   
-It allows specifying composite field names such as ``a.b.c`` and it does the 
+Trans allows specifying composite field names such as ``a.b.c`` and it does the 
 right thing even across multiple arrays.  
 For example, the field above could be used to modify or extract a value from an object 
 that looks like this
@@ -29,6 +29,11 @@ or like this
 ``` javascript
 [ { a: { b: [ { c: 1 }, { c: 2 } ] } } ]
 ```
+
+There are three types of transformation methods:  
+- ``map(*transformers)`` transforms the entire object
+- ``mapf(field, *transformers)``  transforms a particular field
+- ``mapff(source, destination, *transformers)`` takes the value of one field, transforms it, and sets it on another field
 
 ## Quickstart
 
