@@ -90,3 +90,28 @@ Now value looks like this
 ```
 
 ## Methods
+
+``` javascript
+var trans = require('trans');
+```
+
+### trans(data)
+This function creates a transformation wrapper around the specified data. 
+Further transformation methods can be chained on the trans wrapper.
+
+### value()
+This should be called to get back the raw data object.
+
+### get(callback)
+This method makes the current raw data available for inspection. It can be used 
+to insert console log statements in the transformation chain. 
+
+``` javascript
+var value = trans(data)
+    .group('a.b')
+    .get(console.log)
+    .sort('key')
+    .value();
+```
+
+### map(*transformers)
