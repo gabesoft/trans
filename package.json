@@ -1,0 +1,24 @@
+{
+  "name": "trans",
+  "version": "0.0.5",
+  "description": "The ultimate object transformer",
+  "preferGlobal": false,
+  "main": "./lib/index.js",
+  "bin": {},
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "~1.9.0",
+    "Faker": "~0.5.11",
+    "range.js": "~1.1.0",
+    "eyes": "~0.1.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:gabesoft/trans.git"
+  },
+  "author": {
+    "name": "Gabriel Adomnicai",
+    "email": "gabesoft@gmail.com"
+  },
+  "license": "MIT"
+}
