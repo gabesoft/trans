@@ -119,12 +119,15 @@ var value = trans(data)
 This is the main transformation method. It passes the entire raw object to the transformers 
 and it replaces it with the result returned by the last transformer function.
   
-Here are a few simple examples:
+Here is a simple example:
 
 ``` javascript
 trans('2.32').map(parseFloat, square, [add, 10]).value();
 ``` 
 => ``15.3824``  
+
+Field names, and functions that exist on the object being transformed
+can be specified as transformers
 
 ``` javascript
 trans('transform me').map('toUpperCase', ['substring', 0, 5]).value();
@@ -141,7 +144,6 @@ trans({ a: 'foo' }).map('a', 'toUpperCase', ['charAt', 1]).value();
 ```
 => ``'O'``  
 
-Field names can be used as transformers as well like in the above example. 
 If the current object is an array and we would like to iterate it and apply 
 transformers to each item in the array a '.' transformer needs to be specified first. 
 
@@ -163,12 +165,16 @@ trans([ [ 1, 2 ], [ 3 ], [ 4, 5, 6 ] ]).map('.', sum).value();
 => ``[ 3, 3, 15 ]``  
 
 ``` javascript
-trans([ { a: [ 1, 2 ] }, { a: [ 3 ] }, { a: [ 4, 5, 6 ] } ]).map('.', 'a', 'length').value();
+trans([ { a: [ 1, 2 ] }, { a: [ 3 ] }, { a: [ 4, 5, 6 ] } ])
+    .map('.', 'a', 'length')
+    .value();
 ```
 => ``[ 2, 1, 3 ]``  
 
 ``` javascript
-trans([ { a: [ 1, 2 ] }, { a: [ 3 ] }, { a: [ 4, 5, 6 ] } ]).map('.', 'a', '.', square).value();
+trans([ { a: [ 1, 2 ] }, { a: [ 3 ] }, { a: [ 4, 5, 6 ] } ])
+    .map('.', 'a', '.', square)
+    .value();
 ```
 => ``[ [ 1, 4 ], [ 9 ], [ 16, 25, 36 ] ]``  
 
