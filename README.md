@@ -311,7 +311,7 @@ for additional examples.
 ### group(groupField, valueField, *key-transformers)
 
 Group maps an array of objects into an array of key-value pairs where the key is the value
-at the specified group field (possibly transformed) and the value is an array of values as 
+of the specified group field (possibly transformed) and the value is an array of values as 
 indicated by the value field. If the value field is null the entire array item is used.
 
 ``` javascript
@@ -331,7 +331,7 @@ specified as part of the group field. This syntax of the group field is
 ``field:keyName:valueName``.
 
 ``` javascript
-trans([ 1, 1, 2, 1 ]).group(':k:v').value();
+trans([ 1, 1, 2, 1 ]).group(':k:v', null).value();
 ```
 => ``[ { k: 1, v: [ 1, 1, 1 ] }, { k: 2, v: [ 2 ] } ]``
 
@@ -344,6 +344,13 @@ trans([ { a: 1, b: 'x' }, { a: 1, b: 'y' }, { a: 2, b: 'z' } ])
 
 The group field name can contain dots but if it points to values across arrays, 
 the value of the key could be an array, or even nested arrays.
+
+``` javascript
+trans([ { a: [ { b: 1 }, { b: 2 } ], c: 'three' }, { a: [ { b: 10 } ], c: 'ten' } ])
+    .group('a.b', 'c')
+    .value();
+```
+=> ``[ { key: [ 1, 2 ], value: [ 'three' ] }, { key: [ 10 ], value: [ 'ten' ] } ]``
 
 ``` javascript
 trans([ { a: [ { b: 1 }, { b: 2 } ], c: 'three' }, { a: [ { b: 10 } ], c: 'ten' } ])
