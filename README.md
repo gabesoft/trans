@@ -370,11 +370,49 @@ trans([ { a: { b: 1, c: 'one' } }, { a: { b: 11, c: 'eleven' } }, { a: { b: 2, c
 - ``groupf(field, groupField, valueField, *transformers)``
 - ``groupff(source, destination, groupField, valueField, *transformers)``
 
-### sort(sortField, *transformers)
+### sort(sortField, *transformers, [comparer])
+
+Replaces the target array with a stable sorted copy based on the value at the sort field 
+(possibly transformed). If the last function takes two arguments it will be used as a comparer,
+otherwise a default comparison will be used.
+
+``` javascript
+trans([ 1, 2, 1, 1, 3 ]).sort(null).value();
+```
+=> ``[ 1, 1, 1, 2, 3 ]``
+
+``` javascript
+var intToName = { 1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five' };
+
+trans([ 1, 2, 3, 4, 5 ]).sort(null, intToName).value();
+```
+=> ``[ 5, 4, 1, 3, 2 ]``
+
+``` javascript
+trans([ { a: 1 }, { a: 3 }, { a: 2 } ]).sort('a').value();
+```
+=> ``[ { a: 1 }, { a: 2 }, { a: 3 } ]``
+
+``` javascript
+trans([ 
+        { a: 1,  b: { c: 'one' } }
+      , { a: 3,  b: { c: 'three' } }
+      , { a: 10, b: { c: 'ten' } }
+      , { a: 2,  b: { c: 'two' } } ])
+    .sort('b.c')
+    .value();
+```
+=> 
+``` javascript
+    [ { a: 1, b: { c: 'one' } },
+      { a: 10, b: { c: 'ten' } },
+      { a: 3, b: { c: 'three' } },
+      { a: 2, b: { c: 'two' } } ]
+```
 
 #### Other versions
-- ``sortf(field, sortField, *transformers)``
-- ``sortff(source, destination, sortField, *transformers)``
+- ``sortf(field, sortField, *transformers, [comparer])``
+- ``sortff(source, destination, sortField, *transformers, [comparer])``
 
 ## Gotchas and Limitations
 
