@@ -226,7 +226,8 @@ trans({ a: [ { b: 1 }, { b: 2 } ] }).mapf('a.b', [ add, 1 ]).value();
 => ``{ a: [ { b: 2 }, { b: 3 } ] }``  
 
 If the value at the field is an array adding one last dot at the end of the field name 
-will indicate that we want to iterate the array.
+will indicate that we want to transform the elements of the array as opposed to the array
+as a whole.
 
 ``` javascript
 trans({ a: { b: [ 1, 2 ] } }).mapf('a.b', 'length').value();
@@ -275,8 +276,8 @@ trans({ a: [ { b: 1 }, { b: 2 } ] }).mapff('a.b', 'a.c', [ add, 1 ]).value();
 ```
 => ``{ a: [ { b: 1, c: 2 }, { b: 2, c: 3 } ] }``
 
-If the source field points to an array we can indicate that we want to iterate the array by appending
-one last dot.
+If the source field points to an array we can indicate that we want to transform the elements of
+the array by appending one last dot to it.
 
 ``` javascript
 trans({ a: { b: [ 1, 2, 3 ] } }).mapff('a.b', 'a.c', 'length').value();
