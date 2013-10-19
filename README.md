@@ -95,10 +95,10 @@ After running the above code ``result`` will have the following value
 
 ## Methods
 
-### [map(*transformers)](mapFn)
-### [mapf(field, *transformers)](mapfFn)
-### [mapff(source, destination, *transformers)](mapffFn)
-### [group(groupField, valueField, *key-transformers)](groupFn)
+### [map(*transformers)](#mapFn)
+### [mapf(field, *transformers)](#mapfFn)
+### [mapff(source, destination, *transformers)](#mapffFn)
+### [group(groupField, valueField, *key-transformers)](#groupFn)
 
 ``` javascript
 var trans = require('trans');
