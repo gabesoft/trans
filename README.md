@@ -78,7 +78,6 @@ and set the group value to ``c``, then sort the value array, and finally sort th
 entire result array by the group key as follows  
 
 ``` javascript
-
 var trans = require('trans');
 var result = trans(data)
     .group('a.b', 'c', ['charAt', 0], 'toUpperCase')
@@ -473,6 +472,38 @@ for additional examples.
 #### Other versions
 - ``objectf(field, keyField, valueField, *key-transformers)``
 - ``objectff(source, destination, keyField, valueField, *key-transformers)``
+
+### array(keyName, valueName)
+
+Transforms an object into an array where each item is a key-value pair. The key and value names
+can be specified, otherwise they will default to ``key`` and ``value``.
+
+``` javascript
+trans({ a: 1, b: 2, c: 3 }).array().value();
+```
+=> ``[ { key: 'a', value: 1 }, { key: 'b', value: 2 }, { key: 'c', value: 3 } ]``
+
+``` javascript
+trans({ a: 1, b: 2, c: 3 }).array('letter', 'number').value();
+```
+=> ``[ { letter: 'a', number: 1 }, { letter: 'b', number: 2 }, { letter: 'c', number: 3 } ]``
+
+If the target object is an array, ``array`` will be applied to every item in the array.
+
+``` javascript
+trans([ { a: 1, b: 2 }, { a: 3, b: 4, c: 5 }, { d: 6 } ]).array('k', 'v').value();
+```
+=>
+``` javascript
+[ [ { k: 'a', v: 1 }, { k: 'b', v: 2 } ],
+  [ { k: 'a', v: 3 }, { k: 'b', v: 4 }, { k: 'c', v: 5 } ],
+  [ { k: 'd', v: 6 } ] ]
+```
+
+#### Other versions
+- ``arrayf(field, keyName, valueName)``
+- ``arrayff(source, destination, keyName, valueName)``
+
 
 ## Gotchas and Limitations
 
