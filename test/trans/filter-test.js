@@ -75,10 +75,18 @@ module.exports = function (util) {
     });
 
     describe('filterf', function () {
-
+        it('should filter the array at the given field', function () {
+            var o = { a: [ 1, 2, 1, 1, 4, 5 ] }
+              , t = trans(o).filterf('a', null, [mod, 2]).value();
+            assert.deepEqual(t, { a: [ 1, 1, 1, 5 ] });
+        });
     });
 
     describe('filterff', function () {
-
+        it('should filter the array at the source field and set it on the destination', function () {
+            var o = { a: [ 1, 2, 1, 1, 4, 5 ] }
+              , t = trans(o).filterff('a', 'b', null, [mod, 2]).value();
+            assert.deepEqual(t, { a: [ 1, 2, 1, 1, 4, 5 ], b: [ 1, 1, 1, 5 ] });
+        });
     });
 };

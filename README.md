@@ -102,9 +102,10 @@ After running the above code ``result`` will have the following value
 * [sort(sortField, *transformers, \[comparer\])](#sortfn)
 * [object(keyField, valueField, *key-transformers)](#objectfn)
 * [array(keyName, valueName)](#arrayfn)
+* [filter(filterField, *transformers)](#filterfn)
 
-  
-  
+
+## Methods (detail)
 
 ``` javascript
 var trans = require('trans');
@@ -489,7 +490,7 @@ for additional examples.
 - ``objectf(field, keyField, valueField, *key-transformers)``
 - ``objectff(source, destination, keyField, valueField, *key-transformers)``
 
-<a name="objectfn"/>
+<a name="arrayfn"/>
 ### array(keyName, valueName)
 
 Transforms an object into an array where each item is a key-value pair containing each key
@@ -522,6 +523,32 @@ trans([ { a: 1, b: 2 }, { a: 3, b: 4, c: 5 }, { d: 6 } ]).array('k', 'v').value(
 - ``arrayf(field, keyName, valueName)``
 - ``arrayff(source, destination, keyName, valueName)``
 
+<a name="filterfn"/>
+### filter(filterField, *transformers)
+
+Filters an array by the value at the specified field (possibly transformed). If the result
+of the last transformer is not a boolean value, it will be converted to one before filtering.
+
+``` javascript
+trans([1, 2, 1, 4, 5]).filter(null, [ mod, 2 ]).value();
+```
+=> ``[ 1, 1, 5 ]``
+
+``` javascript
+trans([ { a: { b: 1 } }, { a: { b: 0 } }, { a: { b: 3 } } ]).filter('a.b').value();
+```
+=> ``[ { a: { b: 1 } }, { a: { b: 3 } } ]``
+
+``` javascript
+trans([ { a: 'real' }, { a: 'rock' }, { a: 'star' } ])
+    .filter('a', function (s) { return s.charAt(0) === 'r'; })
+    .value();
+```
+=> ``[ { a: 'real' }, { a: 'rock' } ]``
+
+#### Other versions
+- ``filterf(field, filterField, *transformers)``
+- ``filterff(source, destination, filterField, *transformers)``
 
 ## Gotchas and Limitations
 
