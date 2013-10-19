@@ -78,13 +78,13 @@ and set the group value to a.c as follows
 ``` javascript
 
 var trans = require('trans');
-var value = trans(data)
+var result = trans(data)
     .group('a.b', 'a.c', ['charAt', 0], 'toUpperCase')
     .value();
 
 ```
 
-Now value looks like this  
+After running the above code ``result`` will have the following value 
 
 ``` javascript
   [ { key; 'A', value: [ 1, 2 ] }, { key: 'D', value: [ 3 ] }, { key: 'G', value: [ 4 ] } ];
