@@ -73,8 +73,9 @@ var data = [
     , { a: { b: 'ghk' }, c: 4 } ];
 ```
 
-We can use trans to group the data array by the first letter capitalized of the a.b field  
-and set the group value to a.c as follows  
+We can use trans to group the data array by the first letter capitalized of the ``a.b`` field  
+and set the group value to ``c``, then sort the value array, and finally sort the 
+entire result array by the group key as follows  
 
 ``` javascript
 
