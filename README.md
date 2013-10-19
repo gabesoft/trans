@@ -100,6 +100,8 @@ After running the above code ``result`` will have the following value
 * [mapff(source, destination, *transfORmers)](#mapfffn)
 * [group(groupField, valueField, *key-transformers)](#groupfn)
 
+  
+
 ``` javascript
 var trans = require('trans');
 ```
@@ -122,7 +124,7 @@ var value = trans(data)
     .sort('key')
     .value();
 ```
-<a id="mapfn"/>
+<a name="mapfn"/>
 ### map(*transformers) 
 
 This is the main transformation method. It passes the entire raw object to the transformers 
