@@ -553,6 +553,6 @@ console.log(res);
 $ npm install trans
 ```
 
-## license
+## License
 
 MIT
