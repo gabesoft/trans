@@ -536,13 +536,12 @@ to the same object. This may lead to unexpected results.
 
 ``` javascript
 var obj = { a: { b: 2, c: 'X' } };
-var t   = trans(obj).mapff('a', 'c').value();
+var res = trans(obj).mapff('a', 'c').value();
 
-console.log(t);
+console.log(res);
 
-t.a.c = 'changed';
-
-console.log(t);
+res.a.c = 'changed';
+console.log(res);
 ```
 
 => ``{ a: { b: 2, c: 'X' }, c: { b: 2, c: 'X' } }``  
