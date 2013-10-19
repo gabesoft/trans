@@ -32,7 +32,7 @@ or like this
 
 There are three types of transformation methods:  
 - ``map(*transformers)`` transforms the entire object
-- ``mapf(field, *transformers)``  transforms a particular field
+- ``mapf(field, *transformers)``  transforms the value at a particular field
 - ``mapff(source, destination, *transformers)`` takes the value of one field, transforms it, and sets it on another field
 
 The transformers specified as parameters to the transformation methods can be functions, 
@@ -104,7 +104,7 @@ This should be called to get back the raw data object.
 
 ### get(callback)
 This method makes the current raw data available for inspection. It can be used 
-to insert console log statements in the transformation chain. 
+to insert console log statements in the transformation chain for debugging purposes. 
 
 ``` javascript
 var value = trans(data)
@@ -205,7 +205,7 @@ trans({ a: 1 }).mapf('a', [ add, 1 ]).value();
 ```
 => ``{ a: 2 }``  
   
-Field names can contain dots like ``a.b.c`` to reach within nested objects. 
+Field names can contain dots to reach within nested objects. 
 
 ``` javascript
 trans({ a: { b: 1 } }).mapf('a.b', [ add, 1 ]).value();
@@ -232,10 +232,76 @@ trans({ a: { b: [ 1, 2 ] } }).mapf('a.b.', [ add, 1 ]).value();
 ```
 => ``{ a: { b: [ 2, 3 ] } }``  
 
-### mapff(src, dst, *transformers)
+### mapff(source, destination, *transformers)
+
+This transformation maps the value of a field and sets the result onto another field. 
+If the destination is null, the entire object is replaced. If the source and destination are both null it has the exact
+same outcome as ``map``. If the destination field does not exist it is created, otherwise its
+value is replaced by the result of the transformation. The source field is left unchanged.
+
+``` javascript
+trans({ a: 1 }).mapff('a', 'b').value();
+```
+=> ``{ a: 1, b: 1 }``
+
+``` javascript
+trans({ a: 1 }).mapff('a', 'b', [ add, 1 ], square).value();
+```
+=> ``{ a: 1, b: 4 }``  
+
+Composite fields are allowed but the value passed to transformers is scoped based on where 
+the source and destination fields point to. This becomes relevant when we are transforming across 
+arrays.
+
+Below the function ``sum`` gets an array containing the values of ``a.b``, in this case ``[ 1, 2 ]`` 
+and it computes their sum.
+
+``` javascript
+trans({ a: [ { b: 1 }, { b: 2 } ] }).mapff('a.b', 'c', sum).value();
+```
+=> ``{ a: [ { b: 1 }, { b: 2 } ], c: 3 }``
+
+In the next example the scope is reduced to each object inside the array, so the transformers
+only get the value of the ``b`` field.
+
+``` javascript
+trans({ a: [ { b: 1 }, { b: 2 } ] }).mapff('a.b', 'a.c', [ add, 1 ]).value();
+```
+=> ``{ a: [ { b: 1, c: 2 }, { b: 2, c: 3 } ] }``
+
+If the source field points to an array we can indicate that we want to iterate the array by appending
+one last dot.
+
+``` javascript
+trans({ a: { b: [ 1, 2, 3 ] } }).mapff('a.b', 'a.c', 'length').value();
+```
+=> ``{ a: { b: [ 1, 2, 3 ], c: 3 } }``
+
+``` javascript
+trans({ a: { b: [ 1, 2, 3 ] } }).mapff('a.b.', 'a.c', [ add, 5 ]).value();
+```
+=> ``{ a: { b: [ 1, 2, 3 ], c: [ 6, 7, 8 ] } }``
+
+If the destination is null the entire object is replaced. This could be useful for picking up values although
+there is a ``pluck`` method for this purpose.
+
+``` javascript
+trans([ { a: [ { b: 1 }, { b: 2 } ] }, { a: [ { b: 3 } ] } ])
+  .mapff('a.b', null)
+  .value();
+```
+=> ``[ [ 1, 2 ], [ 3 ] ]``
+
+See the [unit tests](https://github.com/gabesoft/trans/blob/master/test/trans/map-test.js) for more comprehensive examples.
 
 ### group(groupField, valueField, *transformers)
 
 ### groupf(field, groupField, valueField, *transformers)
 
-### groupff(src, dst, groupField, valueField, *transformers)
+### groupff(source, destination, groupField, valueField, *transformers)
+
+### sort(sortField, *transformers)
+
+### sortf(field, sortField, *transformers)
+
+### sortff(source, destination, sortField, *transformers)
