@@ -463,7 +463,7 @@ trans([ { a: 'abc', b: 1 }, { a: 'def', b: 2 }, { a: 'ghk', b: 3 } ])
 ```
 => ``{ B: { a: 'abc', b: 1 }, E: { a: 'def', b: 2 }, H: { a: 'ghk', b: 3 } }``
 
-See the [unit tests](https://github.com/gabesoft/trans/blob/master/test/trans/sort-test.js) 
+See the [unit tests](https://github.com/gabesoft/trans/blob/master/test/trans/object-test.js) 
 for additional examples.
 
 #### Other versions
