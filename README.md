@@ -373,13 +373,18 @@ trans([ { a: { b: 1, c: 'one' } }, { a: { b: 11, c: 'eleven' } }, { a: { b: 2, c
 ### sort(sortField, *transformers, [comparer])
 
 Replaces the target array with a stable sorted copy based on the value at the sort field 
-(possibly transformed). If the last function takes two arguments it will be used as a comparer,
-otherwise a default comparison will be used.
+(possibly transformed). If the last function takes exactly two arguments it will be used 
+as a comparer, otherwise a default comparer will be used.
 
 ``` javascript
 trans([ 1, 2, 1, 1, 3 ]).sort(null).value();
 ```
 => ``[ 1, 1, 1, 2, 3 ]``
+
+``` javascript
+trans([ 'Ash', 'bar', 'Baz', 'baz', 'bak', 'Foo', 'ash' ]).sort(null, 'toUpperCase').value();
+```
+=> ``[ 'Ash', 'ash', 'bak', 'bar', 'Baz', 'baz', 'Foo' ]``
 
 ``` javascript
 var intToName = { 1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five' };
