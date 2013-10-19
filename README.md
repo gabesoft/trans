@@ -326,6 +326,21 @@ trans([ { a: 'ray', b: 1 }, { a: 'rich', b: 2 }, { a: 'charles', b: 3 } ])
 ```
 => ``[ { key: 'R', value: [ 1, 2 ] }, { key: 'C', value: [ 3 ] } ]``  
 
+The default key and value names in the output array can be overriden with different names
+as part of the group field. This syntax of the group field is ``field:key:value``.
+
+``` javascript
+trans([ 1, 1, 2, 1 ]).group(':k:v').value();
+```
+=> ``[ { k: 1, v: [ 1, 1, 1 ] }, { k: 2, v: [ 2 ] } ]``
+
+``` javascript
+trans([ { a: 1, b: 'x' }, { a: 1, b: 'y' }, { a: 2, b: 'z' } ])
+    .group('a:number:letters', 'b')
+    .value();
+```
+=> ``[ { number: 1, letters: [ 'x', 'y' ] }, { number: 2, letters: [ 'z' ] } ]``
+
 ### groupf(field, groupField, valueField, *transformers)
 
 ### groupff(source, destination, groupField, valueField, *transformers)
