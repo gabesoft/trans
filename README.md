@@ -295,8 +295,8 @@ trans({ a: { b: [ 1, 2, 3 ] } }).mapff('a.b', 'a.c', '.', [ add, 5 ]).value();
 ```
 => ``{ a: { b: [ 1, 2, 3 ], c: [ 6, 7, 8 ] } }``
 
-If the destination is null the entire object is replaced. This could be useful for picking up values although
-there is a ``pluck`` method for this purpose.
+If the destination is null the entire object is replaced. This could be useful for picking up values,
+although, there is a ``pluck`` method for this purpose.
 
 ``` javascript
 trans([ { a: [ { b: 1 }, { b: 2 } ] }, { a: [ { b: 3 } ] } ])
@@ -305,9 +305,26 @@ trans([ { a: [ { b: 1 }, { b: 2 } ] }, { a: [ { b: 3 } ] } ])
 ```
 => ``[ [ 1, 2 ], [ 3 ] ]``
 
-See the [unit tests](https://github.com/gabesoft/trans/blob/master/test/trans/map-test.js) for more comprehensive examples.
+See the [unit tests](https://github.com/gabesoft/trans/blob/master/test/trans/map-test.js) 
+for additional examples.
 
-### group(groupField, valueField, *transformers)
+### group(groupField, valueField, *key-transformers)
+
+Group maps an array of objects into an array of key-value pairs where the key is the value
+at the specified group field (possibly transformed) and the value is an array of values as 
+indicated by the value field. If the value field is null the entire array item is used.
+
+``` javascript
+trans([ 'ray', 'rich', 'charles' ]).group(null, null, [ 'charAt', 0 ]).value();
+```
+=> ``[ { key: 'r', value: [ 'ray', 'rich' ] }, { key: 'c', value: [ 'charles' ] } ]``  
+
+``` javascript
+trans([ { a: 'ray', b: 1 }, { a: 'rich', b: 2 }, { a: 'charles', b: 3 } ])
+    .group('a', 'b', [ 'charAt', 0 ], 'toUpperCase')
+    .value();
+```
+=> ``[ { key: 'R', value: [ 1, 2 ] }, { key: 'C', value: [ 3 ] } ]``  
 
 ### groupf(field, groupField, valueField, *transformers)
 
