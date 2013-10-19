@@ -99,7 +99,11 @@ After running the above code ``result`` will have the following value
 * [mapf(field, *transformers)](#mapffn)
 * [mapff(source, destination, *transfORmers)](#mapfffn)
 * [group(groupField, valueField, *key-transformers)](#groupfn)
+* [sort(sortField, *transformers, \[comparer\])](#sortfn)
+* [object(keyField, valueField, *key-transformers)](#objectfn)
+* [array(keyName, valueName)](#arrayfn)
 
+  
   
 
 ``` javascript
@@ -205,7 +209,7 @@ trans([ 1, 2 ]).map('length', intToName).value();
 ```
 => ``'two'``
 
-<a id="mapffn"/>
+<a name="mapffn"/>
 ### mapf(field, *transformers)
 
 This is exactly like ``map`` but it is applied at a specified field. In fact if a null
@@ -251,7 +255,7 @@ trans({ a: { b: [ 1, 2 ] } }).mapf('a.b.', [ add, 1 ]).value();
 ```
 => ``{ a: { b: [ 2, 3 ] } }``  
 
-<a id="mapfffn"/>
+<a name="mapfffn"/>
 ### mapff(source, destination, *transformers)
 
 This transformation maps the value of a field and sets the result onto another field. 
@@ -321,7 +325,7 @@ trans([ { a: [ { b: 1 }, { b: 2 } ] }, { a: [ { b: 3 } ] } ])
 See the [unit tests](https://github.com/gabesoft/trans/blob/master/test/trans/map-test.js) 
 for additional examples.
 
-<a id="groupfn"/>
+<a name="groupfn"/>
 ### group(groupField, valueField, *key-transformers)
 
 Maps an array of objects into an array of key-value pairs where the key is the value
@@ -383,6 +387,7 @@ trans([ { a: { b: 1, c: 'one' } }, { a: { b: 11, c: 'eleven' } }, { a: { b: 2, c
 - ``groupf(field, groupField, valueField, *key-transformers)``
 - ``groupff(source, destination, groupField, valueField, *key-transformers)``
 
+<a name="sortfn"/>
 ### sort(sortField, *transformers, [comparer])
 
 Replaces the target array with a stable sorted copy based on the value at the sort field 
@@ -450,6 +455,7 @@ for additional examples.
 - ``sortf(field, sortField, *transformers, [comparer])``
 - ``sortff(source, destination, sortField, *transformers, [comparer])``
 
+<a name="objectfn"/>
 ### object(keyField, valueField, *key-transformers)
 
 Transforms an array into an object where the key is the value at the specified key field 
@@ -483,6 +489,7 @@ for additional examples.
 - ``objectf(field, keyField, valueField, *key-transformers)``
 - ``objectff(source, destination, keyField, valueField, *key-transformers)``
 
+<a name="objectfn"/>
 ### array(keyName, valueName)
 
 Transforms an object into an array where each item is a key-value pair containing each key
