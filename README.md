@@ -37,7 +37,7 @@ There are three types of transformation methods:
 
 The transformers specified as parameters to the transformation methods can be functions, 
 field names, or even objects (which will be used as hash maps). The functions that are not properties
-on the object being transformed are assumed to take that object as the first parameter. But they can 
+on the object being transformed are assumed to take that object as the first parameter. But, they can 
 take additional parameters as well. In those case the function should be specified as an array. 
 When multiple transformers are specified the result of each one is piped over to the next one.
   
@@ -144,8 +144,8 @@ trans({ a: 'foo' }).map('a', 'toUpperCase', [ 'charAt', 1 ]).value();
 ```
 => ``'O'``  
 
-If the current object is an array and we would like to iterate it and apply 
-transformers to each item in the array a '.' transformer needs to be specified first. 
+If the current object is an array and we want to iterate it and apply 
+transformers to each item in the array a ``'.'`` transformer needs to be specified first. 
 
 Here are a few array examples:
 
