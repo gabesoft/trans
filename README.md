@@ -456,6 +456,16 @@ trans([ { a: 'abc', b: 1 }, { a: 'def', b: 2 }, { a: 'ghk', b: 3 } ])
 ```
 => ``{ B: 1, E: 2, H: 3 }``
 
+``` javascript
+trans([ { a: 'abc', b: 1 }, { a: 'def', b: 2 }, { a: 'ghk', b: 3 } ])
+    .object('a', null, [ 'charAt', 1 ], 'toUpperCase')
+    .value();
+```
+=> ``{ B: { a: 'abc', b: 1 }, E: { a: 'def', b: 2 }, H: { a: 'ghk', b: 3 } }``
+
+See the [unit tests](https://github.com/gabesoft/trans/blob/master/test/trans/sort-test.js) 
+for additional examples.
+
 #### Other versions
 - ``objectf(field, keyField, valueField, *transformers)``
 - ``objectff(source, destination, keyField, valueField, *transformers)``
