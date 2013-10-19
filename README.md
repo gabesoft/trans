@@ -546,6 +546,20 @@ trans([ { a: 'real' }, { a: 'rock' }, { a: 'star' } ])
 ```
 => ``[ { a: 'real' }, { a: 'rock' } ]``
 
+The filtering can be inverted by indicating invert on the filter field.
+
+``` javascript
+trans([1, 2, 1, 4, 5]).filter(':invert', [ mod, 2 ]).value();
+```
+=> ``[ 2, 4 ]``
+
+``` javascript
+trans([ { a: 'real' }, { a: 'rock' }, { a: 'star' } ])
+    .filter('a:invert', [ 'charAt', 0 ], [ 'localeCompare', 'r' ])
+    .value();
+```
+=> ``[ { a: 'real' }, { a: 'rock' } ]``
+
 #### Other versions
 - ``filterf(field, filterField, *transformers)``
 - ``filterff(source, destination, filterField, *transformers)``

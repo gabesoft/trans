@@ -15,6 +15,12 @@ module.exports = function (util) {
             assert.deepEqual(t, [ { a: { b: 1 } }, { a: { b: 3 } }  ]);
         });
 
+        it('should filter by the specified field inverted', function () {
+            var o = [ { a: { b: 1 } }, { a: { b: 0 } }, { a: { b: 3 } } ]
+              , t = trans(o).filter('a.b:invert').value();
+            assert.deepEqual(t, [ { a: { b: 0 } }]);
+        });
+
         it('should filter by the specified field and predicate', function () {
             var o = [ { a: [ 1, 2 ] }, { a: [ 3, 6 ] }, { a: [ 1, 4 ] }, { a: [ 1, 5 ] } ]
               , t = trans(o).filter('a', sum, [mod, 3], Boolean).value();
