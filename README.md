@@ -144,8 +144,9 @@ trans({ a: 'foo' }).map('a', 'toUpperCase', [ 'charAt', 1 ]).value();
 ```
 => ``'O'``  
 
-If the current object is an array and we want to iterate it and apply 
-transformers to each item in the array a ``'.'`` transformer needs to be specified first. 
+If the current object is an array the whole array is passed to the transformer functions.
+To transform its elements instead precede the transformers with a dot ``'.'`` which will
+indicate that array iteration is desired.
 
 Here are a few array examples:
 
@@ -163,6 +164,11 @@ trans([ 1, 2, 3 ]).map('.', square).value();
 trans([ [ 1, 2 ], [ 3 ], [ 4, 5, 6 ] ]).map('.', sum).value();
 ```
 => ``[ 3, 3, 15 ]``  
+
+``` javascript
+trans([ [ 1, 2 ], [ 3 ], [ 4, 5, 6 ] ]).map('.', '.', [ add, 5 ]).value();
+```
+=> ``[ [ 6, 7 ], [ 8 ], [ 9, 10, 11 ] ]``  
 
 ``` javascript
 trans([ { a: [ 1, 2 ] }, { a: [ 3 ] }, { a: [ 4, 5, 6 ] } ])
