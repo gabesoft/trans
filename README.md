@@ -103,6 +103,16 @@ After running the above code ``result`` will have the following value
 * [object(keyField, valueField, *key-transformers)](#objectfn)
 * [array(keyName, valueName)](#arrayfn)
 * [filter(filterField, *transformers)](#filterfn)
+* [flatten(deep)](#flattenfn)
+* [default(key1, value1, key2, value2, ...)](#defaultfn)
+* [pick(*fields)](#pickfn)
+* [omit(*fields)](#omitfn)
+* [remove(*fields)](#removefn)
+* [pluck(field, *transformers)](#pluckfn)
+* [skip(count)](#skipfn)
+* [take(count)](#takefn)
+* [first()](#firstfn)
+* [last()](#lastfn)
 
 
 ## Methods (detail)
@@ -116,10 +126,10 @@ This function creates a transformation wrapper around the specified data.
 Further transformation methods can be chained on the trans wrapper.
 
 ### value()
-This should be called to get back the raw data object.
+Unwraps the raw data object.
 
 ### get(callback)
-This method makes the current raw data available for inspection. It can be used 
+Makes the current raw data available for inspection. It can be used 
 to insert console log statements in the transformation chain for debugging purposes. 
 
 ``` javascript
@@ -563,6 +573,73 @@ trans([ { a: 'real' }, { a: 'rock' }, { a: 'star' } ])
 #### Other versions
 - ``filterf(field, filterField, *transformers)``
 - ``filterff(source, destination, filterField, *transformers)``
+
+<a name="flattenfn" />
+### flatten(deep)
+
+#### Other versions
+- ``flatenf(field, deep)``
+- ``flatenff(source, destination, deep)``
+
+<a name="defaultfn" />
+### default(key1, value1, key2, value2, ...)
+
+<a name="pickfn" />
+### pick(*fields)
+
+#### Other versions
+- ``pickf(field, *fields)``
+- ``pickff(source, destination, *fields)``
+
+<a name="omitfn" />
+### omit(*fields)
+
+#### Other versions
+- ``omitf(field, *fields)``
+- ``omitff(source, destination, *fields)``
+
+<a name="removefn" />
+### remove(*fields)
+
+#### Other versions
+- ``removef(field, *fields)``
+- ``removeff(source, destination, *fields)``
+
+<a name="pluckfn" />
+### pluck(pluckField, *transformers)
+
+#### Other versions
+- ``pluckf(field, pluckField, *transformers)``
+- ``pluckff(source, destination, pluckField, *transformers)``
+
+<a name="skipfn" />
+### skip(count)
+
+#### Other versions
+- ``skipf(field, count)``
+- ``skipff(source, destination, count)``
+
+<a name="takefn" />
+### take(count)
+
+#### Other versions
+- ``takef(field, count)``
+- ``takeff(source, destination, count)``
+
+<a name="firstfn" />
+### first()
+
+#### Other versions
+- ``firstf(field)``
+- ``firstff(source, destination)``
+
+<a name="lastfn" />
+### last()
+
+#### Other versions
+- ``lastf(field)``
+- ``lastff(source, destination)``
+
 
 ## Gotchas and Limitations
 
