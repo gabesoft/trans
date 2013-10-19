@@ -366,13 +366,37 @@ trans([ { a: { b: 1, c: 'one' } }, { a: { b: 11, c: 'eleven' } }, { a: { b: 2, c
 ```
 => ``[ { key: 1, value: [ 'one', 'eleven' ] }, { key: 2, value: [ 'two' ] } ]``
 
-
-### groupf(field, groupField, valueField, *transformers)
-
-### groupff(source, destination, groupField, valueField, *transformers)
+#### Other versions
+- ``groupf(field, groupField, valueField, *transformers)``
+- ``groupff(source, destination, groupField, valueField, *transformers)``
 
 ### sort(sortField, *transformers)
 
-### sortf(field, sortField, *transformers)
+#### Other versions
+- ``groupf(field, sortField, *transformers)``
+- ``groupff(source, destination, sortField, *transformers)``
 
-### sortff(source, destination, sortField, *transformers)
+## Gotchas and Limitations
+
+Some transformations will modify the original data while others won't. See the two
+examples below.
+
+``` javascript
+var a = [ 1, 2, 3 ];
+var t = trans(a).map('shift').value();
+
+console.log(a);
+console.log(t);
+```
+=> ``[ 2, 3 ]``
+=> ``1``
+
+``` javascript
+var a = [ 1, 2, 3 ];
+var t = trans(a).map(['slice', 0, 1], 'shift').value();
+
+console.log(a);
+console.log(t);
+```
+=> ``[ 1, 2, 3 ]``
+=> ``1``
