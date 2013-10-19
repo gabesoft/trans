@@ -32,8 +32,9 @@ or like this
 
 There are three types of transformation methods:  
 - ``map(*transformers)`` transforms the entire object
-- ``mapf(field, *transformers)``  transforms the value at a particular field
-- ``mapff(source, destination, *transformers)`` takes the value of one field, transforms it, and sets it on another field
+- ``mapf(field, *transformers)``  transforms the value of a field
+- ``mapff(source, destination, *transformers)`` transforms the value of a field and
+sets it onto another field
 
 The transformers specified as parameters to the transformation methods can be functions, 
 field names, or even objects (which will be used as hash maps). The functions that are not properties
@@ -342,8 +343,7 @@ trans([ { a: 1, b: 'x' }, { a: 1, b: 'y' }, { a: 2, b: 'z' } ])
 ```
 => ``[ { number: 1, letters: [ 'x', 'y' ] }, { number: 2, letters: [ 'z' ] } ]``
 
-The group field name can contain dots but if it points to values across arrays, 
-the value of the key could be an array, or even nested arrays.
+The group field name can contain dots to reach within nested objects or arrays.
 
 ``` javascript
 trans([ { a: [ { b: 1 }, { b: 2 } ], c: 'three' }, { a: [ { b: 10 } ], c: 'ten' } ])
