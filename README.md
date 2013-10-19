@@ -545,5 +545,5 @@ t.a.c = 'changed';
 console.log(t);
 ```
 
-=> ``{ a: { b: 2, c: 'X' }, c: { b: 2, c: 'X' } }``
+=> ``{ a: { b: 2, c: 'X' }, c: { b: 2, c: 'X' } }``  
 => ``{ a: { b: 2, c: 'changed' }, c: { b: 2, c: 'changed' } }``
