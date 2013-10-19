@@ -437,6 +437,29 @@ for additional examples.
 - ``sortf(field, sortField, *transformers, [comparer])``
 - ``sortff(source, destination, sortField, *transformers, [comparer])``
 
+### object(keyField, valueField, *key-transformers)
+
+Transforms an array into an object where the key is the value at the specified key field 
+(possibly transformed) and the value is as indicated by the value field. If the value
+field is null, the entire array item is used as the value. If multiple values map to the 
+same key, the last one wins.
+
+``` javascript
+trans(['abc', 'def', 'ghk']).object(null, null, [ 'charAt', 0 ]).value();
+```
+=> ``{ a: 'abc', d: 'def', g: 'ghk' }``
+
+``` javascript
+trans([ { a: 'abc', b: 1 }, { a: 'def', b: 2 }, { a: 'ghk', b: 3 } ])
+    .object('a', 'b', [ 'charAt', 1 ], 'toUpperCase')
+    .value();
+```
+=> ``{ B: 1, E: 2, H: 3 }``
+
+#### Other versions
+- ``objectf(field, keyField, valueField, *transformers)``
+- ``objectff(source, destination, keyField, valueField, *transformers)``
+
 ## Gotchas and Limitations
 
 Some transformations will modify the original data while others won't. See the two
