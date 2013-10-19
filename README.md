@@ -373,8 +373,8 @@ trans([ { a: { b: 1, c: 'one' } }, { a: { b: 11, c: 'eleven' } }, { a: { b: 2, c
 ### sort(sortField, *transformers)
 
 #### Other versions
-- ``groupf(field, sortField, *transformers)``
-- ``groupff(source, destination, sortField, *transformers)``
+- ``sortf(field, sortField, *transformers)``
+- ``sortff(source, destination, sortField, *transformers)``
 
 ## Gotchas and Limitations
 
@@ -388,7 +388,7 @@ var t = trans(a).map('shift').value();
 console.log(a);
 console.log(t);
 ```
-=> ``[ 2, 3 ]``
+=> ``[ 2, 3 ]``  
 => ``1``
 
 ``` javascript
@@ -398,5 +398,5 @@ var t = trans(a).map(['slice', 0, 1], 'shift').value();
 console.log(a);
 console.log(t);
 ```
-=> ``[ 1, 2, 3 ]``
+=> ``[ 1, 2, 3 ]``  
 => ``1``
