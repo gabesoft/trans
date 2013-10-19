@@ -67,6 +67,7 @@ Here's a quick taste. Assuming we have an object that looks like this
 ``` javascript
 var data = [ 
       { a: { b: 'fbc' }, c: 1 }
+    , { a: { b: 'foo' }, c: 3 }
     , { a: { b: 'fde' }, c: 2 }
     , { a: { b: 'def' }, c: 3 }
     , { a: { b: 'ghk' }, c: 4 } ];
@@ -80,6 +81,7 @@ and set the group value to a.c as follows
 var trans = require('trans');
 var result = trans(data)
     .group('a.b', 'c', ['charAt', 0], 'toUpperCase')
+    .sortf('value')
     .sort('key')
     .value();
 
@@ -88,7 +90,7 @@ var result = trans(data)
 After running the above code ``result`` will have the following value 
 
 ``` javascript
-[ { key: 'D', value: [ 3 ] }, { key: 'F', value: [ 1, 2 ] }, { key: 'G', value: [ 4 ] } ]
+[ { key: 'D', value: [ 3 ] }, { key: 'F', value: [ 1, 2, 3 ] }, { key: 'G', value: [ 4 ] } ]
 ```
 
 ## Methods
