@@ -475,8 +475,9 @@ for additional examples.
 
 ### array(keyName, valueName)
 
-Transforms an object into an array where each item is a key-value pair. The key and value names
-can be specified, otherwise they will default to ``key`` and ``value``.
+Transforms an object into an array where each item is a key-value pair containing each key
+and its value. The key and value names can be specified, otherwise they will default 
+to ``key`` and ``value``.
 
 ``` javascript
 trans({ a: 1, b: 2, c: 3 }).array().value();
@@ -529,3 +530,20 @@ console.log(t);
 ```
 => ``[ 1, 2, 3 ]``  
 => ``1``
+
+Calling ``mapff`` without any transformer functions will just create another reference
+to the same object. This may lead to unexpected results.  
+
+``` javascript
+var obj = { a: { b: 2, c: 'X' } };
+var t   = trans(obj).mapff('a', 'c').value();
+
+console.log(t);
+
+t.a.c = 'changed';
+
+console.log(t);
+```
+
+=> ``{ a: { b: 2, c: 'X' }, c: { b: 2, c: 'X' } }``
+=> ``{ a: { b: 2, c: 'changed' }, c: { b: 2, c: 'changed' } }``
