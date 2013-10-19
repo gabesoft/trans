@@ -66,10 +66,10 @@ Here's a quick taste. Assuming we have an object that looks like this
 
 ``` javascript
 var data = [ 
-      { a: { b: 'abc' }, { c: 1 } }
-    , { a: { b: 'ade' }, { c: 2 } }
-    , { a: { b: 'def' }, { c: 3 } }
-    , { a: { b: 'ghk' }, { c: 4 } } ];
+      { a: { b: 'fbc' }, c: 1 }
+    , { a: { b: 'fde' }, c: 2 }
+    , { a: { b: 'def' }, c: 3 }
+    , { a: { b: 'ghk' }, c: 4 } ];
 ```
 
 We can use trans to group the data array by the first letter capitalized of the a.b field  
@@ -79,7 +79,8 @@ and set the group value to a.c as follows
 
 var trans = require('trans');
 var result = trans(data)
-    .group('a.b', 'a.c', ['charAt', 0], 'toUpperCase')
+    .group('a.b', 'c', ['charAt', 0], 'toUpperCase')
+    .sort('key')
     .value();
 
 ```
@@ -87,7 +88,7 @@ var result = trans(data)
 After running the above code ``result`` will have the following value 
 
 ``` javascript
-  [ { key; 'A', value: [ 1, 2 ] }, { key: 'D', value: [ 3 ] }, { key: 'G', value: [ 4 ] } ];
+[ { key: 'D', value: [ 3 ] }, { key: 'F', value: [ 1, 2 ] }, { key: 'G', value: [ 4 ] } ]
 ```
 
 ## Methods
@@ -367,8 +368,8 @@ trans([ { a: { b: 1, c: 'one' } }, { a: { b: 11, c: 'eleven' } }, { a: { b: 2, c
 => ``[ { key: 1, value: [ 'one', 'eleven' ] }, { key: 2, value: [ 'two' ] } ]``
 
 #### Other versions
-- ``groupf(field, groupField, valueField, *transformers)``
-- ``groupff(source, destination, groupField, valueField, *transformers)``
+- ``groupf(field, groupField, valueField, *key-transformers)``
+- ``groupff(source, destination, groupField, valueField, *key-transformers)``
 
 ### sort(sortField, *transformers, [comparer])
 
@@ -467,8 +468,8 @@ See the [unit tests](https://github.com/gabesoft/trans/blob/master/test/trans/ob
 for additional examples.
 
 #### Other versions
-- ``objectf(field, keyField, valueField, *transformers)``
-- ``objectff(source, destination, keyField, valueField, *transformers)``
+- ``objectf(field, keyField, valueField, *key-transformers)``
+- ``objectff(source, destination, keyField, valueField, *key-transformers)``
 
 ## Gotchas and Limitations
 
