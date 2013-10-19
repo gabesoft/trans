@@ -546,3 +546,13 @@ console.log(res);
 
 => ``{ a: { b: 2, c: 'X' }, c: { b: 2, c: 'X' } }``  
 => ``{ a: { b: 2, c: 'changed' }, c: { b: 2, c: 'changed' } }``
+
+## Install
+
+```
+$ npm install trans
+```
+
+## license
+
+MIT
