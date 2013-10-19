@@ -95,10 +95,10 @@ After running the above code ``result`` will have the following value
 
 ## Methods
 
-#### [map(*transformers)](#mapfn)
-#### [mapf(field, *transformers)](#mapfFn)
-#### [mapff(source, destination, *transformers)](#mapffFn)
-#### [group(groupField, valueField, *key-transformers)](#groupFn)
+* [map(*transformers)](#mapfn)
+* [mapf(field, *transformers)](#mapffn)
+* [mapff(source, destination, *transfORmers)](#mapfffn)
+* [group(groupField, valueField, *key-transformers)](#groupfn)
 
 ``` javascript
 var trans = require('trans');
@@ -122,8 +122,8 @@ var value = trans(data)
     .sort('key')
     .value();
 ```
-
-### map(*transformers) <a id="mapfn"/>
+<a id="mapfn"/>
+### map(*transformers) 
 
 This is the main transformation method. It passes the entire raw object to the transformers 
 and it replaces it with the result returned by the last transformer function.
@@ -203,7 +203,8 @@ trans([ 1, 2 ]).map('length', intToName).value();
 ```
 => ``'two'``
 
-### mapf(field, *transformers) [mapfFn]
+<a id="mapffn"/>
+### mapf(field, *transformers)
 
 This is exactly like ``map`` but it is applied at a specified field. In fact if a null
 field is specified the result is identical to calling ``map``. Otherwise, the input
@@ -248,7 +249,8 @@ trans({ a: { b: [ 1, 2 ] } }).mapf('a.b.', [ add, 1 ]).value();
 ```
 => ``{ a: { b: [ 2, 3 ] } }``  
 
-### mapff(source, destination, *transformers) [mapffFn]
+<a id="mapfffn"/>
+### mapff(source, destination, *transformers)
 
 This transformation maps the value of a field and sets the result onto another field. 
 If the destination is null, the entire object is replaced. If the source and destination are both null it has the exact
@@ -317,7 +319,8 @@ trans([ { a: [ { b: 1 }, { b: 2 } ] }, { a: [ { b: 3 } ] } ])
 See the [unit tests](https://github.com/gabesoft/trans/blob/master/test/trans/map-test.js) 
 for additional examples.
 
-### group(groupField, valueField, *key-transformers) [groupFn]
+<a id="groupfn"/>
+### group(groupField, valueField, *key-transformers)
 
 Maps an array of objects into an array of key-value pairs where the key is the value
 of the specified group field (possibly transformed) and the value is an array of values as 
