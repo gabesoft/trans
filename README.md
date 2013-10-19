@@ -95,10 +95,10 @@ After running the above code ``result`` will have the following value
 
 ## Methods
 
-### [map(*transformers)](#mapFn)
-### [mapf(field, *transformers)](#mapfFn)
-### [mapff(source, destination, *transformers)](#mapffFn)
-### [group(groupField, valueField, *key-transformers)](#groupFn)
+#### [map(*transformers)](#mapfn)
+#### [mapf(field, *transformers)](#mapfFn)
+#### [mapff(source, destination, *transformers)](#mapffFn)
+#### [group(groupField, valueField, *key-transformers)](#groupFn)
 
 ``` javascript
 var trans = require('trans');
@@ -123,7 +123,7 @@ var value = trans(data)
     .value();
 ```
 
-### map(*transformers) [mapFn]
+### map(*transformers) <a id="mapfn"/>
 
 This is the main transformation method. It passes the entire raw object to the transformers 
 and it replaces it with the result returned by the last transformer function.
