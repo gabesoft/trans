@@ -411,8 +411,8 @@ trans([ { a: { b: 1, c: 'one' } }, { a: { b: 11, c: 'eleven' } }, { a: { b: 2, c
 ### sort(sortField, *transformers, [comparer])
 
 Replaces the target array with a stable sorted copy based on the value at the sort field 
-(possibly transformed). If the last function takes exactly two arguments it will be used 
-as a comparer, otherwise a default comparer will be used.
+(possibly transformed). If the last argument is a function that takes exactly two arguments 
+it will be used as a comparer, otherwise a default comparer will be used.
 
 ``` javascript
 trans([ 1, 2, 1, 1, 3 ]).sort(null).value();
