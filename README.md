@@ -269,6 +269,8 @@ trans({ a: { b: [ 1, 2 ] } }).mapf('a.b.', [ add, 1 ]).value();
 ```
 => ``{ a: { b: [ 2, 3 ] } }``  
 
+[Back to Index](#methodsindex)
+
 <a name="mapfffn"/>
 ### mapff(source, destination, *transformers)
 
@@ -339,6 +341,8 @@ trans([ { a: [ { b: 1 }, { b: 2 } ] }, { a: [ { b: 3 } ] } ])
 See the [unit tests](https://github.com/gabesoft/trans/blob/master/test/trans/map-test.js) 
 for additional examples.
 
+[Back to Index](#methodsindex)
+
 <a name="groupfn"/>
 ### group(groupField, valueField, *key-transformers)
 
@@ -400,6 +404,8 @@ trans([ { a: { b: 1, c: 'one' } }, { a: { b: 11, c: 'eleven' } }, { a: { b: 2, c
 #### Other versions
 - ``groupf(field, groupField, valueField, *key-transformers)``
 - ``groupff(source, destination, groupField, valueField, *key-transformers)``
+
+[Back to Index](#methodsindex)
 
 <a name="sortfn"/>
 ### sort(sortField, *transformers, [comparer])
@@ -469,6 +475,8 @@ for additional examples.
 - ``sortf(field, sortField, *transformers, [comparer])``
 - ``sortff(source, destination, sortField, *transformers, [comparer])``
 
+[Back to Index](#methodsindex)
+
 <a name="objectfn"/>
 ### object(keyField, valueField, *key-transformers)
 
@@ -503,6 +511,8 @@ for additional examples.
 - ``objectf(field, keyField, valueField, *key-transformers)``
 - ``objectff(source, destination, keyField, valueField, *key-transformers)``
 
+[Back to Index](#methodsindex)
+
 <a name="arrayfn"/>
 ### array(keyName, valueName)
 
@@ -535,6 +545,8 @@ trans([ { a: 1, b: 2 }, { a: 3, b: 4, c: 5 }, { d: 6 } ]).array('k', 'v').value(
 #### Other versions
 - ``arrayf(field, keyName, valueName)``
 - ``arrayff(source, destination, keyName, valueName)``
+
+[Back to Index](#methodsindex)
 
 <a name="filterfn"/>
 ### filter(filterField, *transformers)
@@ -577,6 +589,8 @@ trans([ { a: 'real' }, { a: 'rock' }, { a: 'star' } ])
 - ``filterf(field, filterField, *transformers)``
 - ``filterff(source, destination, filterField, *transformers)``
 
+[Back to Index](#methodsindex)
+
 <a name="flattenfn" />
 ### flatten(deep)
 
@@ -596,6 +610,8 @@ trans([ [ 1 ], [ 2 ], [ [ 3, 4 ], 5 ], [ [ 6 ] ] ]).flatten(true).value();
 #### Other versions
 - ``flatenf(field, deep)``
 - ``flatenff(source, destination, deep)``
+
+[Back to Index](#methodsindex)
 
 <a name="defaultfn" />
 ### default(key1, value1, key2, value2, ...)
@@ -623,6 +639,8 @@ trans([ { a: [ { b: 1 }, {} ] }, { a: [ {} ] } ]).default('a.b', 10).value();
 ```
 => ``[ { a: [ { b: 1 }, { b: 10 } ] }, { a: [ { b: 10 } ] } ]``
 
+[Back to Index](#methodsindex)
+
 <a name="pickfn" />
 ### pick(*fields)
 
@@ -643,6 +661,8 @@ trans({ a: [ { b: 1, c: 2 }, { b: 3, c: 4 } ], d: 5 }).pick('a.b').value();
 #### Other versions
 - ``pickf(field, *fields)``
 - ``pickff(source, destination, *fields)``
+
+[Back to Index](#methodsindex)
 
 <a name="omitfn" />
 ### omit(*fields)
@@ -665,6 +685,8 @@ trans({ a: [ { b: 1, c: 2 }, { b: 3, c: 4 } ], d: 5 }).omit('a.c', 'd').value();
 - ``omitf(field, *fields)``
 - ``omitff(source, destination, *fields)``
 
+[Back to Index](#methodsindex)
+
 <a name="removefn" />
 ### remove(*fields)
 
@@ -685,6 +707,8 @@ trans({ a: [ { b: 1, c: 2 }, { b: 3, c: 4 } ], d: 5 }).remove('a.c', 'd').value(
 #### Other versions
 - ``removef(field, *fields)``
 - ``removeff(source, destination, *fields)``
+
+[Back to Index](#methodsindex)
 
 <a name="pluckfn" />
 ### pluck(pluckField, *transformers)
@@ -712,12 +736,16 @@ trans([ { a: { b: [ { c: 1 } ] } }, { a: { b: [ { c: 3 }, { c: 4 } ] } } ])
 - ``pluckf(field, pluckField, *transformers)``
 - ``pluckff(source, destination, pluckField, *transformers)``
 
+[Back to Index](#methodsindex)
+
 <a name="skipfn" />
 ### skip(count)
 
 #### Other versions
 - ``skipf(field, count)``
 - ``skipff(source, destination, count)``
+
+[Back to Index](#methodsindex)
 
 <a name="takefn" />
 ### take(count)
@@ -726,12 +754,16 @@ trans([ { a: { b: [ { c: 1 } ] } }, { a: { b: [ { c: 3 }, { c: 4 } ] } } ])
 - ``takef(field, count)``
 - ``takeff(source, destination, count)``
 
+[Back to Index](#methodsindex)
+
 <a name="firstfn" />
 ### first()
 
 #### Other versions
 - ``firstf(field)``
 - ``firstff(source, destination)``
+
+[Back to Index](#methodsindex)
 
 <a name="lastfn" />
 ### last()
