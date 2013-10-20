@@ -805,6 +805,8 @@ trans([ 1, 2, 4 ]).last().value();
 - ``lastf(field)``
 - ``lastff(source, destination)``
 
+[Back to Index](#methodsindex)
+
 
 ## Gotchas and Limitations
 
