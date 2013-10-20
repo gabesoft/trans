@@ -577,6 +577,19 @@ trans([ { a: 'real' }, { a: 'rock' }, { a: 'star' } ])
 <a name="flattenfn" />
 ### flatten(deep)
 
+Flattens nested arrays. If deep is set to false or not specified only the first level
+is flattened. 
+
+``` javascript
+trans([ [ 1 ], [ 2 ], [ [ 3, 4 ], 5 ], [ [ 6 ] ] ]).flatten().value();
+```
+=> ``[ 1, 2, [ 3, 4 ], 5, [ 6 ] ]``
+
+``` javascript
+trans([ [ 1 ], [ 2 ], [ [ 3, 4 ], 5 ], [ [ 6 ] ] ]).flatten(true).value();
+```
+=> ``[ 1, 2, 3, 4, 5, 6 ]``
+
 #### Other versions
 - ``flatenf(field, deep)``
 - ``flatenff(source, destination, deep)``
@@ -584,8 +597,45 @@ trans([ { a: 'real' }, { a: 'rock' }, { a: 'star' } ])
 <a name="defaultfn" />
 ### default(key1, value1, key2, value2, ...)
 
+Fills in ``undefined`` and ``null`` values with the specified defaults. The number of
+arguments is expected to be an even number.
+
+``` javascript
+trans({ a: { b: null, c: { }, d: { e: { g: 4 } } } })
+    .default('a.b', 1, 'a.c.f', 2, 'a.d.e.f', 5)
+    .value();
+```
+=> ``{ a: { b: 1, c: { f: 2 }, d: { e: { f: 5, g: 4 } } } }``
+
+
+If the target object is an array, ``default`` is applied to every item in the array.
+
+``` javascript
+trans([{}, { a: 1 }, { a: null }, { a: 4 }, {} ]).default('a', 100).value();
+```
+=> ``[ { a: 100 }, { a: 1 }, { a: 100 }, { a: 4 }, { a: 100 } ]``
+
+``` javascript
+trans([ { a: [ { b: 1 }, {} ] }, { a: [ {} ] } ]).default('a.b', 10).value();
+```
+=> ``[ { a: [ { b: 1 }, { b: 10 } ] }, { a: [ { b: 10 } ] } ]``
+
 <a name="pickfn" />
 ### pick(*fields)
+
+Creates new objects that contain only the specified fields.
+
+``` javascript
+trans({ a: { b: 1, c: 2 }, d: 5, e: 6 }).pick('a.b', 'e').value();
+```
+=> ``{ a: { b: 1 }, e: 6 }``
+
+If the target object is an array, ``pick`` is applied to every item in the array.
+
+``` javascript
+trans({ a: [ { b: 1, c: 2 }, { b: 3, c: 4 } ], d: 5 }).pick('a.b').value();
+```
+=> ``{ a: [ { b: 1 }, { b: 3 } ] }``
 
 #### Other versions
 - ``pickf(field, *fields)``
