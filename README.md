@@ -780,6 +780,11 @@ trans([ 1, 2, 4 ]).first().value();
 ```
 =>``1``
 
+``` javascript
+trans([]).first().value();
+```
+=> ``null``
+
 #### Other versions
 - ``firstf(field)``
 - ``firstff(source, destination)``
