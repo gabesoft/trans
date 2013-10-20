@@ -363,7 +363,7 @@ trans([ { a: 'ray', b: 1 }, { a: 'rich', b: 2 }, { a: 'charles', b: 3 } ])
 => ``[ { key: 'R', value: [ 1, 2 ] }, { key: 'C', value: [ 3 ] } ]``  
 
 The default key and value names in the output array can be overriden with different names
-specified as part of the group field. This syntax of the group field is 
+specified as part of the group field. The syntax of the group field is 
 ``field:keyName:valueName``.
 
 ``` javascript
