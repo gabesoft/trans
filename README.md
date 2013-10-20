@@ -704,10 +704,6 @@ trans({ a: [ { b: 1, c: 2 }, { b: 3, c: 4 } ], d: 5 }).remove('a.c', 'd').value(
 ```
 => ``{ a: [ { b: 1 }, { b: 3 } ] }``
 
-#### Other versions
-- ``removef(field, *fields)``
-- ``removeff(source, destination, *fields)``
-
 [Back to Index](#methodsindex)
 
 <a name="pluckfn" />
