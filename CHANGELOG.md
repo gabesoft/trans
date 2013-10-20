@@ -1,3 +1,7 @@
+0.0.6
+-----
+Documentation + minor fixes
+
 0.0.4
 -----
 Load eyes module on demand
