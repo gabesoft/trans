@@ -696,7 +696,7 @@ trans({ a: { b: 100 } }).pluck('a.b').value();
 ``` javascript
 trans({ a: [ { b: 1 }, { b: 2 }, { b: 3 } ] }).pluck('a.b').value();
 ```
-=> ``[ 1, 2, 3 ]
+=> ``[ 1, 2, 3 ]``
 
 ``` javascript
 trans([ { a: { b: [ { c: 1 } ] } }, { a: { b: [ { c: 3 }, { c: 4 } ] } } ])
