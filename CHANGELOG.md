@@ -1,3 +1,7 @@
+0.0.10
+-----
+Documentation fixes 3
+
 0.0.9
 -----
 Documentation fixes 3
