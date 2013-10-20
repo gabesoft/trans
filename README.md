@@ -741,6 +741,13 @@ trans([ { a: { b: [ { c: 1 } ] } }, { a: { b: [ { c: 3 }, { c: 4 } ] } } ])
 <a name="skipfn" />
 ### skip(count)
 
+Creates a new array that skips the specified number of items.
+
+``` javascript
+trans([ 1, 2, 3, 4, 5, 6 ]).skip(2).value();
+```
+=> ``[ 3, 4, 5, 6 ]``
+
 #### Other versions
 - ``skipf(field, count)``
 - ``skipff(source, destination, count)``
@@ -749,6 +756,13 @@ trans([ { a: { b: [ { c: 1 } ] } }, { a: { b: [ { c: 3 }, { c: 4 } ] } } ])
 
 <a name="takefn" />
 ### take(count)
+
+Creates a new array that contains only the first specified number of items.
+
+``` javascript
+trans([ 1, 2, 3, 4, 5, 6 ]).take(2).value();
+```
+=> ``[ 1, 2 ]``
 
 #### Other versions
 - ``takef(field, count)``
@@ -759,6 +773,13 @@ trans([ { a: { b: [ { c: 1 } ] } }, { a: { b: [ { c: 3 }, { c: 4 } ] } } ])
 <a name="firstfn" />
 ### first()
 
+Replaces the current array with its first element.
+
+``` javascript
+trans([ 1, 2, 4 ]).first().value();
+```
+=>``1``
+
 #### Other versions
 - ``firstf(field)``
 - ``firstff(source, destination)``
@@ -767,6 +788,13 @@ trans([ { a: { b: [ { c: 1 } ] } }, { a: { b: [ { c: 3 }, { c: 4 } ] } } ])
 
 <a name="lastfn" />
 ### last()
+
+Replaces the current array with its last element.
+
+``` javascript
+trans([ 1, 2, 4 ]).last().value();
+```
+=>``4``
 
 #### Other versions
 - ``lastf(field)``
