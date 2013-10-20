@@ -773,7 +773,7 @@ trans([ 1, 2, 3, 4, 5, 6 ]).take(2).value();
 <a name="firstfn" />
 ### first()
 
-Replaces the current array with its first element.
+Replaces the target array with its first element.
 
 ``` javascript
 trans([ 1, 2, 4 ]).first().value();
@@ -794,7 +794,7 @@ trans([]).first().value();
 <a name="lastfn" />
 ### last()
 
-Replaces the current array with its last element.
+Replaces the target array with its last element.
 
 ``` javascript
 trans([ 1, 2, 4 ]).last().value();
