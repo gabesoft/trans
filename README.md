@@ -221,7 +221,7 @@ trans([ 1, 2 ]).map('length', intToName).value();
 ```
 => ``'two'``
 
-[Methods Index](#methodsindex)
+[Back to Index](#methodsindex)
 
 <a name="mapffn"/>
 ### mapf(field, *transformers)
@@ -782,7 +782,7 @@ console.log(res);
 => ``{ a: { b: 2, c: 'X' }, c: { b: 2, c: 'X' } }``  
 => ``{ a: { b: 2, c: 'changed' }, c: { b: 2, c: 'changed' } }``
 
-## Install
+## Download
 
 ```
 $ npm install trans
