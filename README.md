@@ -98,7 +98,7 @@ After running the above code ``result`` will have the following value
 
 * [map(*transformers)](#mapfn)
 * [mapf(field, *transformers)](#mapffn)
-* [mapff(source, destination, *transfORmers)](#mapfffn)
+* [mapff(source, destination, *transformers)](#mapfffn)
 * [group(groupField, valueField, *key-transformers)](#groupfn)
 * [sort(sortField, *transformers, \[comparer\])](#sortfn)
 * [object(keyField, valueField, *key-transformers)](#objectfn)
