@@ -310,7 +310,7 @@ trans({ a: [ { b: 1 }, { b: 2 } ] }).mapff('a.b', 'a.c', [ add, 1 ]).value();
 => ``{ a: [ { b: 1, c: 2 }, { b: 2, c: 3 } ] }``
 
 If the source field points to an array we can indicate that we want to transform the elements of
-the array by appending one last dot to it. Or alternatively a dot ``'.'`` could be specified as
+the array by appending one last dot to it. Alternatively, a dot ``'.'`` could be specified as
 the first transformer.
 
 ``` javascript
