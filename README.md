@@ -93,7 +93,8 @@ After running the above code ``result`` will have the following value
 [ { key: 'D', value: [ 3 ] }, { key: 'F', value: [ 1, 2, 3 ] }, { key: 'G', value: [ 4 ] } ]
 ```
 
-## Methods
+<a name="methodsindex" />
+## Methods (index)
 
 * [map(*transformers)](#mapfn)
 * [mapf(field, *transformers)](#mapffn)
@@ -219,6 +220,8 @@ var intToName = { 1: 'one', 2: 'two', 3: 'three' };
 trans([ 1, 2 ]).map('length', intToName).value();
 ```
 => ``'two'``
+
+[Methods Index](#methodsindex)
 
 <a name="mapffn"/>
 ### mapf(field, *transformers)
