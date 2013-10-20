@@ -1,3 +1,7 @@
+0.0.12
+-----
+Documentation fixes 5
+
 0.0.11
 -----
 Documentation fixes 4
