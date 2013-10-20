@@ -1,3 +1,7 @@
+0.0.7
+-----
+Documentation fixes
+
 0.0.6
 -----
 Documentation + minor fixes
