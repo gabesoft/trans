@@ -644,6 +644,20 @@ trans({ a: [ { b: 1, c: 2 }, { b: 3, c: 4 } ], d: 5 }).pick('a.b').value();
 <a name="omitfn" />
 ### omit(*fields)
 
+Creates new objects that do not contain the specified fields.
+
+``` javascript
+trans({ a: { b: 1, c: 2 }, d: 5, e: 6 }).omit('a.c', 'd').value();
+```
+=> ``{ a: { b: 1 }, e: 6 }``
+
+If the target object is an array, ``omit`` is applied to every item in the array.
+
+``` javascript
+trans({ a: [ { b: 1, c: 2 }, { b: 3, c: 4 } ], d: 5 }).omit('a.c', 'd').value();
+```
+=> ``{ a: [ { b: 1 }, { b: 3 } ] }``
+
 #### Other versions
 - ``omitf(field, *fields)``
 - ``omitff(source, destination, *fields)``
@@ -651,12 +665,45 @@ trans({ a: [ { b: 1, c: 2 }, { b: 3, c: 4 } ], d: 5 }).pick('a.b').value();
 <a name="removefn" />
 ### remove(*fields)
 
+Traverses the object tree and deletes the specified fields in place.
+
+``` javascript
+trans({ a: { b: 1, c: 2 }, d: 5, e: 6 }).remove('a.c', 'd').value();
+```
+=> ``{ a: { b: 1 }, e: 6 }``
+
+If the target object is an array, ``remove`` is applied to every item in the array.
+
+``` javascript
+trans({ a: [ { b: 1, c: 2 }, { b: 3, c: 4 } ], d: 5 }).remove('a.c', 'd').value();
+```
+=> ``{ a: [ { b: 1 }, { b: 3 } ] }``
+
 #### Other versions
 - ``removef(field, *fields)``
 - ``removeff(source, destination, *fields)``
 
 <a name="pluckfn" />
 ### pluck(pluckField, *transformers)
+
+Extracts the value(s) at the indicated field.
+
+``` javascript
+trans({ a: { b: 100 } }).pluck('a.b').value();
+```
+=> ``100``
+
+``` javascript
+trans({ a: [ { b: 1 }, { b: 2 }, { b: 3 } ] }).pluck('a.b').value();
+```
+=> ``[ 1, 2, 3 ]
+
+``` javascript
+trans([ { a: { b: [ { c: 1 } ] } }, { a: { b: [ { c: 3 }, { c: 4 } ] } } ])
+    .pluck('a.b.c')
+    .value();
+```
+=> ``[ [ 1 ], [ 3, 4 ] ]``
 
 #### Other versions
 - ``pluckf(field, pluckField, *transformers)``
