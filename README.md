@@ -301,6 +301,13 @@ trans({ a: [ { b: 1 }, { b: 2 } ] }).mapff('a.b', 'c', sum).value();
 ```
 => ``{ a: [ { b: 1 }, { b: 2 } ], c: 3 }``
 
+Specifying a dot as the first transformer iterates the array.
+
+``` javascript
+trans({ a: [ { b: 1 }, { b: 2 } ] }).mapff('a.b', 'c', '.', [add, 1]).value();
+```
+=> ``{ a: [ { b: 1 }, { b: 2 } ], c: [ 2, 3 ] }``
+
 In the next example the scope is reduced to each object inside the array, so the transformers
 only get the value of the ``b`` field.
 
