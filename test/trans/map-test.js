@@ -255,6 +255,12 @@ module.exports = function (util) {
             assert.deepEqual(t, { a: [ [ { b: 2 } ], [ { b: 3 } ] ] });
         });
 
+        it('should handle empty objects', function () {
+        var o = [ {}, {} ]
+          , t = trans(o).mapf('b', [ add, 1 ]).value();
+          assert.deepEqual(t, [ { b: 1 }, { b: 1 } ]);
+        });
+
         it('should pass the index when iterating arrays 1', function () {
             var o = { a: [
                     { b: [ 'a', 'b', 'c' ] }
@@ -324,7 +330,7 @@ module.exports = function (util) {
 
         it('should map the object at the given field - array2b', function () {
             var o = { a: [ { b: 1 }, { b: 2 }, { b: 3 } ] }
-              , t = trans(o).mapff('a.b', 'c', [add, 1], square).value();
+              , t = trans(o).mapff('a.b', 'c', '.', [add, 1], square).value();
             assert.deepEqual(t, { a: [ { b: 1 }, { b: 2 }, { b: 3 } ] , c: [ 4, 9, 16 ] });
         });
 
@@ -362,7 +368,7 @@ module.exports = function (util) {
 
         it('should work with nested fields within an array', function () {
             var o = { a: [ { b: { c: 1 } }, { b: { c: 2 } }, { b: { c: 3 } } ] }
-              , t = trans(o).mapff('a.b.c', 'd', [add, 1], square).value();
+              , t = trans(o).mapff('a.b.c', 'd', '.', [add, 1], square).value();
             assert.deepEqual(t, {
                 a: [ { b: { c: 1 } }, { b: { c: 2 } }, { b: { c: 3 } } ]
               , d: [ 4, 9, 16 ]
@@ -405,7 +411,7 @@ module.exports = function (util) {
             var o = [
                     { a: [ { b: { c: 1 } }, { b: { c: 2 } } ] }
                   , { a: [ { b: { c: 2 } }, { b: { c: 3 } } ] } ]
-              , t = trans(o).mapff('a.b.c', 'd', [add, 1], square).value();
+              , t = trans(o).mapff('a.b.c', 'd', '.', [add, 1], square).value();
             assert.deepEqual(t, [
                 { a: [ { b: { c: 1 } }, { b: { c: 2 } } ], d: [ 4, 9 ] }
               , { a: [ { b: { c: 2 } }, { b: { c: 3 } } ], d: [ 9, 16 ] } ]);
@@ -425,7 +431,7 @@ module.exports = function (util) {
             var o = [
                     { a: [ { b: { c: 1 } }, { b: { c: 2 } } ] }
                   , { a: [ { b: { c: 2 } }, { b: { c: 3 } } ] } ]
-              , t = trans(o).mapff('a.b.c', 'a', [add, 1], square).value();
+              , t = trans(o).mapff('a.b.c', 'a', '.', [add, 1], square).value();
             assert.deepEqual(t, [
                 { a: [ 4, 9 ] }
               , { a: [ 9, 16 ] } ]);
@@ -439,6 +445,14 @@ module.exports = function (util) {
             assert.deepEqual(t, [
                 { a: [ { b: { c: 1, d: 4 } }, { b: { c: 2, d: 9 } } ] }
               , { a: [ { b: { c: 2, d: 9 } }, { b: { c: 3, d: 16 } } ] } ]);
+        });
+
+        it('should map fields within the proper object 7', function () {
+          var o = [ { a: [ { b: { c: 1 } }, { b: { c: 2 } } ] }, { a: [ { b: { c: 3 } } ] } ]
+            , t = trans(o).mapff('a.b.c', 'e', sum).value();
+          assert.deepEqual(t, [
+              { a: [ { b: { c: 1 } }, { b: { c: 2 } } ], e: 3 }
+            , { a: [ { b: { c: 3 } } ], e: 3 } ]);
         });
 
         it('should not skip missing fields 1', function () {
@@ -498,7 +512,7 @@ module.exports = function (util) {
             var o = {
                     a: [ { b: '1' }, { b: '2' }, { b: '3' } ]
                   , e: [ { b: 1, c: 'a' }, { b: 2, c: 'b' } ] }
-              , t = trans(o).mapff('a.b', 'e.c', function (x) { return x + ':' + this.getIndex(); }).value();
+              , t = trans(o).mapff('a.b', 'e.c', '.', function (x) { return x + ':' + this.getIndex(); }).value();
             assert.deepEqual(t, {
                 a: [ { b: '1' }, { b: '2' }, { b: '3' } ]
               , e: [
@@ -532,7 +546,7 @@ module.exports = function (util) {
                   , { a: { b: [ { c: [ 'f', 'g', 'k' ] }, { c: [ 'l', 'm', 'n', 'o' ] }, { c: [ 'r', 's' ] } ] } }
                   , { a: { b: [ { c: [ 't', 'u', 'v', 'w' ] } ] } }
                 ]
-              , t = trans(o).mapff('a.b.c.', null, function (x) {
+                , t = trans(o).mapff('a.b.c.', null, '.', function (x) {
                     return x + ':' + this.getIndexes() + ':' + this.getIndex();
                 }).value();
             assert.deepEqual(t, [
@@ -591,6 +605,34 @@ module.exports = function (util) {
             ]);
         });
 
+        it('should handle falsy values 1', function () {
+          var o = { a: 0 }
+              , t = trans(o).mapff('a', 'b', square).value();
+          assert.deepEqual(t, { a: 0, b: 0 });
+        });
+
+        it('should handle falsy values 2', function () {
+            var o = { a: { b: 0 } }
+              , t = trans(o).mapff('a.b', 'a.c', square).value();
+            assert.deepEqual(t, { a: { b: 0, c: 0 }});
+        });
+
+        it('should handle falsy values 3', function () {
+              var t = trans(0).mapff(null, null, square).value();
+              assert.strictEqual(t, 0);
+        });
+
+        it('should handle empty arrays', function () {
+          var t = trans([]).mapff('a.b', 'a.c', [ add, 1 ]).value();
+          assert.deepEqual(t, []);
+        });
+
+        it('should handle empty objects', function () {
+        var o = [ {}, {} ]
+          , t = trans(o).mapff('a', 'b', [ add, 1 ]).value();
+          assert.deepEqual(t, [ { b: 1 }, { b: 1 } ]);
+        });
+
         it('should replace the whole object when the destination field is null 5', function () {
             var o = [ { a: { b: 1 } }, { a: { b: 2 } }, { a: {} }, { a: {} } ]
               , t = trans(o)
@@ -599,28 +641,72 @@ module.exports = function (util) {
             assert.deepEqual(t, [ 3, 4, 102, 102 ]);
         });
 
-        it('should fail when the destination is a field on the source object 1', function () {
-            assert.throws(function () {
-                trans({ a: { b: { c: 1 } } }).mapff('a.b', 'a.b.c');
-            }, Error);
+        it('should allow setting a field on the source object 1', function () {
+          var o = { a: { b: 1, c: 2 } }
+            , t = trans(o).mapff('a', 'a.d', function (x) { return x.b + x.c; }).value();
+          assert.deepEqual(t, { a: { b: 1, c: 2, d: 3 } });
         });
 
-        it('should fail when the destination is a field on the source object 2', function () {
-            assert.throws(function () {
-                trans({ a: { b: 1 } }).mapff(null, 'e').value();
-            }, /destination cannot be a field on the source object/i);
+        it('should allow setting a field on the source object 2', function () {
+          var o = { a: [ { b: 1 }, { b: 2 } ] }
+            , t = trans(o).mapff('a', 'a.c', 'length').value();
+          assert.deepEqual(t, { a: [ { b: 1, c: 2 }, { b: 2, c: 2 } ] });
         });
 
-        it('should fail when the destination is a field on the source object 3', function () {
-            assert.throws(function () {
-                trans({ a: { b: 1 } }).mapff(null, 'a.b');
-            }, /destination cannot be a field on the source object/i);
+        it('should allow setting a field on the source object 3', function () {
+          var o = [ { a: [ { b: 1 }, { b: 2 } ] }, { a: [ { b: 2 } ] } ]
+            , t = trans(o).mapff('a', 'a.c', 'length').value();
+          assert.deepEqual(t, [
+              { a: [ { b: 1, c: 2 }, { b: 2, c: 2 } ] }
+            , { a: [ { b: 2, c: 1 } ] } ]);
         });
 
-        it('should fail when the destination field is not on an object', function () {
-            assert.throws(function () {
-                trans({ a: { b: 1 }, c: { d: 1 } }).mapff('a.b', 'c.d.e');
-            }, Error);
+        it('should allow setting a field on the source object 4', function () {
+          var o = [ { a: [ { b: { c: 1 } }, { b: { c: 2 } } ] }, { a: [ { b: { c: 3 } } ] } ]
+            , t = trans(o).mapff('a', 'a.b.d', 'length').value();
+          assert.deepEqual(t, [
+              { a: [ { b: { c: 1, d: 2 } }, { b: { c: 2, d: 2 } } ] }
+            , { a: [ { b: { c: 3, d: 1 } } ] } ]);
         });
+
+        it('should allow setting a field on the source object 5', function () {
+          var o = [ { a: [ { b: { c: 1 } }, { b: { c: 2 } } ] }, { a: [ { b: { c: 3 } } ] } ]
+            , t = trans(o).mapff('a.b', 'a.b.d', function (x) { return x.c + 1; }).value();
+          assert.deepEqual(t, [
+              { a: [ { b: { c: 1, d: 2 } }, { b: { c: 2, d: 3 } } ] }
+            , { a: [ { b: { c: 3, d: 4 } } ] } ]);
+        });
+
+        it('should allow setting a field on the source object 6', function () {
+          var o = { a: 1, b: 2 }
+              , t = trans(o).mapff(null, 'c', function (x) { return x.a + x.b; }).value();
+          assert.deepEqual(t, { a: 1, b: 2, c: 3 });
+        });
+
+
+
+        //it('should fail when the destination is a field on the source object 1', function () {
+            //assert.throws(function () {
+                //trans({ a: { b: { c: 1 } } }).mapff('a.b', 'a.b.c');
+            //}, Error);
+        //});
+
+        //it('should fail when the destination is a field on the source object 2', function () {
+            //assert.throws(function () {
+                //trans({ a: { b: 1 } }).mapff(null, 'e').value();
+            //}, /destination cannot be a field on the source object/i);
+        //});
+
+        //it('should fail when the destination is a field on the source object 3', function () {
+            //assert.throws(function () {
+                //trans({ a: { b: 1 } }).mapff(null, 'a.b');
+            //}, /destination cannot be a field on the source object/i);
+        //});
+
+        //it('should fail when the destination field is not on an object', function () {
+            //assert.throws(function () {
+                //trans({ a: { b: 1 }, c: { d: 1 } }).mapff('a.b', 'c.d.e');
+            //}, Error);
+        //});
     });
 };

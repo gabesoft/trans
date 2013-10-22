@@ -845,6 +845,14 @@ console.log(res);
 => ``{ a: { b: 2, c: 'X' }, c: { b: 2, c: 'X' } }``  
 => ``{ a: { b: 2, c: 'changed' }, c: { b: 2, c: 'changed' } }``
 
+Calling ``mapff`` without any transformer functions and setting the destination to
+be a field on the source object would create a circular reference.
+
+``` javascript
+trans({ a: { b: { c: 1 } } }).mapff('a', 'a.b.d').value();
+```
+=> ``{ a: { b: { c: 1, d: [Circular] } } }``
+
 ## Download
 
 ```

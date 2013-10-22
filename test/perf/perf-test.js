@@ -59,7 +59,7 @@ module.exports = function (util) {
 
         it('should group by the contacts geo locations', function () {
             var t = trans(data)
-                   .mapff('contacts.addresses.geo', 'geo', function (geo) {
+                    .mapff('contacts.addresses.geo', 'geo', '.', function (geo) {
                         return Math.floor(parseFloat(geo.lat) + parseFloat(geo.lng));
                     })
                    .flattenf('geo', true)

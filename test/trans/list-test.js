@@ -50,7 +50,7 @@ module.exports = function (util) {
             var o = [
                     [ { a: [ { b: 1 }, { b: 2 } ] }, { a: [ { b: 3 } ] } ]
                   , [ { a: [ { b: 10 } ] }, { a: [ { b: 11 }, { b: 12 }, { b: 13 } ] } ] ]
-              , t = trans(o).pluck('a.b', [add, 5]).value();
+              , t = trans(o).pluck('a.b', '.', [add, 5]).value();
             assert.deepEqual(t, [ [ [ 6, 7 ], [ 8 ] ], [ [ 15 ], [ 16, 17, 18 ] ] ]);
         });
     });
