@@ -683,6 +683,17 @@ module.exports = function (util) {
             assert.deepEqual(t, { a: 1, b: 2, c: 3 });
         });
 
+        it('should allow setting a field on the source object - nested arrays', function () {
+            var o = [
+                    [ { a: { b: 1, c: 10 } }, { a: { b: 2, c: 20 } } ]
+                  , [ { a: { b: 3, c: 30 } } ] ]
+              , t = trans(o).mapff('a', 'a.e', function (x) { return x.b + x.c; }).value();
+            assert.deepEqual(t, [
+                [ { a: { b: 1, c: 10, e: 11 } }, { a: { b: 2, c: 20, e: 22 } } ]
+              , [ { a: { b: 3, c: 30, e: 33 } } ]
+            ]);
+        });
+
         it('should fail when the destination field is not on an object', function () {
             assert.throws(function () {
                 trans({ a: { b: 1 }, c: { d: 1 } }).mapff('a.b', 'c.d.e');
