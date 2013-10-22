@@ -1,3 +1,7 @@
+0.0.13
+-----
+Bug fixes in mapff + documentation + unit tests
+
 0.0.12
 -----
 Documentation fixes 5
