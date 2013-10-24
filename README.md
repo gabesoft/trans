@@ -271,6 +271,13 @@ trans({ a: { b: [ 1, 2 ] } }).mapf('a.b.', [ add, 1 ]).value();
 ```
 => ``{ a: { b: [ 2, 3 ] } }``  
 
+Specifying a dot ``'.'`` as the first transformer accomplishes the same thing.
+
+``` javascript
+trans({ a: { b: [ 1, 2 ] } }).mapf('a.b', '.', [ add, 1 ]).value();
+```
+=> ``{ a: { b: [ 2, 3 ] } }``  
+
 [Back to Index](#methodsindex)
 
 <a name="mapfffn"/>
