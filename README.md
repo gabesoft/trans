@@ -9,10 +9,12 @@ _/  |_____________    ____   ______
 
 *The ultimate object transformer*
 
+## Purpose
+
+The purpose of trans is to make it super easy to transform complex json objects
+
 ## Overview
 
-####The purpose of trans is to make it super easy to transform complex json objects
-  
 Trans allows specifying composite field names such as ``a.b.c`` and it does the 
 right thing even across multiple arrays.  
 For example, the field above could be used to modify or extract a value from an object 
