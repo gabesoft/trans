@@ -257,14 +257,16 @@ trans({ a: [ { b: 1 }, { b: 2 } ] }).mapf('a.b', [ add, 1 ]).value();
 ```
 => ``{ a: [ { b: 2 }, { b: 3 } ] }``  
 
-If the value at the field is an array adding one last dot at the end of the field name 
-will indicate that we want to transform the elements of the array as opposed to the array
-as a whole.
+If the value at the field is an array it is passed to the transformer functions.
 
 ``` javascript
 trans({ a: { b: [ 1, 2 ] } }).mapf('a.b', 'length').value();
 ```
 => ``{ a: { b: 2 } }``  
+
+Add one last dot at the end of the field name to indicate that array iteration is desired.
+In such a case each array item is passed to the transformer functions and a new array is created
+with the results of the transformations.
 
 ``` javascript
 trans({ a: { b: [ 1, 2 ] } }).mapf('a.b.', [ add, 1 ]).value();
