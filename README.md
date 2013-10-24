@@ -257,7 +257,7 @@ trans({ a: [ { b: 1 }, { b: 2 } ] }).mapf('a.b', [ add, 1 ]).value();
 ```
 => ``{ a: [ { b: 2 }, { b: 3 } ] }``  
 
-If the value at the field is an array it is passed to the transformer functions.
+If the value at the field is an array the entire array is passed to the transformer functions.
 
 ``` javascript
 trans({ a: { b: [ 1, 2 ] } }).mapf('a.b', 'length').value();
