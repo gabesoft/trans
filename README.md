@@ -722,6 +722,16 @@ trans({ a: [ { b: 1 }, { b: 2 }, { b: 3 } ] }).pluck('a.b').value();
 => ``[ 1, 2, 3 ]``
 
 ``` javascript
+trans({ a: [ { b: 1 }, { b: 2 }, { b: 3 } ] }).pluck('a.b', sum).value();
+```
+=> ``6``
+
+``` javascript
+trans({ a: [ { b: 1 }, { b: 2 }, { b: 3 } ] }).pluck('a.b', '.', [ add, 1 ]).value();
+```
+=> ``[ 2, 3, 4 ]``
+
+``` javascript
 trans([ { a: { b: [ { c: 1 } ] } }, { a: { b: [ { c: 3 }, { c: 4 } ] } } ])
     .pluck('a.b.c')
     .value();
