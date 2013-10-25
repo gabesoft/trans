@@ -698,7 +698,8 @@ trans({ a: [ { b: 1, c: 2 }, { b: 3, c: 4 } ], d: 5 }).pick('a.b').value();
 <a name="omitfn" />
 ### omit(*fields)
 
-Creates new objects that do not contain the specified fields.
+Creates new objects that do not contain the specified fields. Calling omit with no 
+parameters will create a deep copy of the current object.
 
 ``` javascript
 trans({ a: { b: 1, c: 2 }, d: 5, e: 6 }).omit('a.c', 'd').value();
