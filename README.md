@@ -325,8 +325,8 @@ pointing to items in the array.
 
 ``` javascript
 trans({ a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ] })
-  .mapff('a', 'a.d', function(a) { return a.b + a.c; })
-  .value();
+    .mapff('a', 'a.d', function(a) { return a.b + a.c; })
+    .value();
 ```
 => ``{ a: [ { b: 1, c: 3, d: 4 }, { b: 2, c: 3, d: 5 } ] }``
 
