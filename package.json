@@ -1,6 +1,6 @@
 {
   "name": "trans",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "The ultimate object transformer",
   "preferGlobal": false,
   "main": "./lib/index.js",
