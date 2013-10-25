@@ -320,8 +320,8 @@ trans({ a: [ { b: 1 }, { b: 2 } ] }).mapff('a.b', 'a.c', [ add, 1 ]).value();
 ```
 => ``{ a: [ { b: 1, c: 2 }, { b: 2, c: 3 } ] }``
 
-If the source field points to an array and the destination is a field on each item in the
-array the transformers will get as input each array item.
+Same thing below, the scope is each item in the array due to the destination field
+pointing to items in the array.
 
 ``` javascript
 trans({ a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ] })
@@ -329,6 +329,14 @@ trans({ a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ] })
   .value();
 ```
 => ``{ a: [ { b: 1, c: 3, d: 4 }, { b: 2, c: 3, d: 5 } ] }``
+
+Constrast the above with the next example where the destination is another field
+on the outer object.
+
+``` javascript
+trans({ a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ] }).mapff('a', 'd', '.', 'b').value();
+```
+=> ``{ a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ], d: [ 1, 2 ] }``
 
 If the source field points to an array we can indicate that we want to transform the elements of
 the array by appending one last dot to it. Alternatively, a dot ``'.'`` could be specified as
