@@ -708,13 +708,13 @@ module.exports = function (util) {
         });
 
         it('should allow setting a field on the source object 10', function () {
-              var o = [
+            var o = [
                     { a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ] },
                     { a: [ { b: 5, c: 3 }, { b: 7, c: 3 } ] } ]
               , t = trans(o).mapff('a', 'a.d', function(x) { return x.b + x.c; }).value();
             assert.deepEqual(t, [
-              { a: [ { b: 1, c: 3, d: 4 }, { b: 2, c: 3, d: 5 } ] },
-              { a: [ { b: 5, c: 3, d: 8 }, { b: 7, c: 3, d: 10 } ] }
+                { a: [ { b: 1, c: 3, d: 4 }, { b: 2, c: 3, d: 5 } ] },
+                { a: [ { b: 5, c: 3, d: 8 }, { b: 7, c: 3, d: 10 } ] }
             ]);
         });
 
