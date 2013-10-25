@@ -334,7 +334,9 @@ Constrast the above with the next example where the destination is another field
 on the outer object.
 
 ``` javascript
-trans({ a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ] }).mapff('a', 'd', '.', 'b').value();
+trans({ a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ] })
+    .mapff('a', 'd', '.', 'b')
+    .value();
 ```
 => ``{ a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ], d: [ 1, 2 ] }``
 
