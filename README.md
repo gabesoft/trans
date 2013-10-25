@@ -331,7 +331,7 @@ trans({ a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ] })
 => ``{ a: [ { b: 1, c: 3, d: 4 }, { b: 2, c: 3, d: 5 } ] }``
 
 Constrast the above with the next example where the destination is a field
-on the outer object.
+on the outer object. The scope now is the entire array that ``a`` points to.
 
 ``` javascript
 trans({ a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ] })
