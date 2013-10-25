@@ -54,6 +54,12 @@ module.exports = function (util) {
             assert.deepEqual(t, [ 'abwwzz', 'cdewwzz' ]);
         });
 
+        it('should map the transformation state - array 1', function () {
+            var o = [ { b: 1, c: 3 }, { b: 2, c: 3 } ]
+              , t = trans(o).map('.', function(x) { return x.b + x.c; }).value();
+            assert.deepEqual(t, [ 4, 5 ] );
+        });
+
         it('should map the transformation state - array1b', function () {
             var o = [ { a: 1 }, { a: 2 }, {a: 3 } ]
               , t = trans(o).map('.', 'a', [add, 1]).value();
@@ -649,13 +655,13 @@ module.exports = function (util) {
 
         it('should allow setting a field on the source object 2', function () {
             var o = { a: [ { b: 1 }, { b: 2 } ] }
-              , t = trans(o).mapff('a', 'a.c', 'length').value();
-            assert.deepEqual(t, { a: [ { b: 1, c: 2 }, { b: 2, c: 2 } ] });
+              , t = trans(o).mapff('a', 'a.c', 'b', [ add, 1 ]).value();
+            assert.deepEqual(t, { a: [ { b: 1, c: 2 }, { b: 2, c: 3 } ] });
         });
 
         it('should allow setting a field on the source object 3', function () {
             var o = [ { a: [ { b: 1 }, { b: 2 } ] }, { a: [ { b: 2 } ] } ]
-              , t = trans(o).mapff('a', 'a.c', 'length').value();
+              , t = trans(o).mapff(null, 'a.c', 'a', 'length').value();
             assert.deepEqual(t, [
                 { a: [ { b: 1, c: 2 }, { b: 2, c: 2 } ] }
               , { a: [ { b: 2, c: 1 } ] } ]);
@@ -663,7 +669,7 @@ module.exports = function (util) {
 
         it('should allow setting a field on the source object 4', function () {
             var o = [ { a: [ { b: { c: 1 } }, { b: { c: 2 } } ] }, { a: [ { b: { c: 3 } } ] } ]
-              , t = trans(o).mapff('a', 'a.b.d', 'length').value();
+              , t = trans(o).mapff(null, 'a.b.d', 'a', 'length').value();
             assert.deepEqual(t, [
                 { a: [ { b: { c: 1, d: 2 } }, { b: { c: 2, d: 2 } } ] }
               , { a: [ { b: { c: 3, d: 1 } } ] } ]);
@@ -681,6 +687,35 @@ module.exports = function (util) {
             var o = { a: 1, b: 2 }
               , t = trans(o).mapff(null, 'c', function (x) { return x.a + x.b; }).value();
             assert.deepEqual(t, { a: 1, b: 2, c: 3 });
+        });
+
+        it('should allow setting a field on the source object 7', function () {
+            var o = [ { b: 1, c: 3 }, { b: 2, c: 3 } ]
+              , t = trans(o).mapff(null, 'd', function(x) { return x.b + x.c; }).value();
+            assert.deepEqual(t, [ { b: 1, c: 3, d: 4 }, { b: 2, c: 3, d: 5 } ]);
+        });
+
+        it('should allow setting a field on the source object 8', function () {
+            var o = { a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ] }
+              , t = trans(o).mapff('a', 'a.d', function(x) { return x.b + x.c; }).value();
+            assert.deepEqual(t, { a: [ { b: 1, c: 3, d: 4 }, { b: 2, c: 3, d: 5 } ] });
+        });
+
+        it('should allow setting a field on the source object 9', function () {
+            var o = { a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ] }
+              , t = trans(o).mapff('a', 'd', '.', function(x) { return x.b + x.c; }).value();
+            assert.deepEqual(t, { a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ], d: [ 4, 5 ] });
+        });
+
+        it('should allow setting a field on the source object 10', function () {
+              var o = [
+                    { a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ] },
+                    { a: [ { b: 5, c: 3 }, { b: 7, c: 3 } ] } ]
+              , t = trans(o).mapff('a', 'a.d', function(x) { return x.b + x.c; }).value();
+            assert.deepEqual(t, [
+              { a: [ { b: 1, c: 3, d: 4 }, { b: 2, c: 3, d: 5 } ] },
+              { a: [ { b: 5, c: 3, d: 8 }, { b: 7, c: 3, d: 10 } ] }
+            ]);
         });
 
         it('should allow setting a field on the source object - nested arrays', function () {
