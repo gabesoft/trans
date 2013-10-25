@@ -330,7 +330,7 @@ trans({ a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ] })
 ```
 => ``{ a: [ { b: 1, c: 3, d: 4 }, { b: 2, c: 3, d: 5 } ] }``
 
-Constrast the above with the next example where the destination is another field
+Constrast the above with the next example where the destination is a field
 on the outer object.
 
 ``` javascript
