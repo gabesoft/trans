@@ -326,15 +326,25 @@ trans({ a: [ { b: 1 }, { b: 2 } ] }).mapff('a.b', 'a.c', [ add, 1 ]).value();
 ```
 => ``{ a: [ { b: 1, c: 2 }, { b: 2, c: 3 } ] }``
 
-If the source field points to an array and the destination is a field on each item in the
-array the transformers will get as input each array item.
+Same thing below, the scope is each item in the array due to the destination field
+pointing to items in the array.
 
 ``` javascript
 trans({ a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ] })
-  .mapff('a', 'a.d', function(a) { return a.b + a.c; })
-  .value();
+    .mapff('a', 'a.d', function(a) { return a.b + a.c; })
+    .value();
 ```
 => ``{ a: [ { b: 1, c: 3, d: 4 }, { b: 2, c: 3, d: 5 } ] }``
+
+Constrast the above with the next example where the destination is a field
+on the outer object. The scope now is the entire array that ``a`` points to.
+
+``` javascript
+trans({ a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ] })
+    .mapff('a', 'd', '.', 'b')
+    .value();
+```
+=> ``{ a: [ { b: 1, c: 3 }, { b: 2, c: 3 } ], d: [ 1, 2 ] }``
 
 If the source field points to an array we can indicate that we want to transform the elements of
 the array by appending one last dot to it. Alternatively, a dot ``'.'`` could be specified as
@@ -694,7 +704,8 @@ trans({ a: [ { b: 1, c: 2 }, { b: 3, c: 4 } ], d: 5 }).pick('a.b').value();
 <a name="omitfn" />
 ### omit(*fields)
 
-Creates new objects that do not contain the specified fields.
+Creates new objects that do not contain the specified fields. Calling omit with no 
+parameters will create a deep copy of the current object.
 
 ``` javascript
 trans({ a: { b: 1, c: 2 }, d: 5, e: 6 }).omit('a.c', 'd').value();

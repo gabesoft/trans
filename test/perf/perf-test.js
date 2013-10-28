@@ -91,8 +91,8 @@ module.exports = function (util) {
     describe('mapff', function () {
         it('should create a location field on each contact', function () {
             var t = trans(data)
-                   .mapff('contacts.addresses.geo', 'contacts.loc', function (geo) { return geo.lat + ':' + geo.lng; })
-                   .mapf('contacts.loc', ['join', '#'])
+                   .mapff('contacts.addresses.geo', 'contacts.loc', '.', function (geo) { return geo.lat + ':' + geo.lng; })
+                   .mapf('contacts.loc', ['join', ', '])
                    .pluck('contacts.loc')
                    .flatten()
                    .value();
@@ -134,7 +134,7 @@ module.exports = function (util) {
     });
 
     describe('copy', function () {
-        it('should copy the object', function () {
+        it('should deep copy the data object', function () {
             trans(data).copy();
         });
     });
