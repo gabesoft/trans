@@ -9,6 +9,12 @@ _/  |_____________    ____   ______
 
 *The ultimate object transformer*
 
+## Install
+
+```
+$ npm install trans
+```
+
 ## Purpose
 
 The purpose of trans is to make it super easy to transform complex json objects
@@ -883,12 +889,6 @@ be a field on the source object would create a circular reference.
 trans({ a: { b: { c: 1 } } }).mapff('a', 'a.b.d').value();
 ```
 => ``{ a: { b: { c: 1, d: [Circular] } } }``
-
-## Download
-
-```
-$ npm install trans
-```
 
 ## License
 
