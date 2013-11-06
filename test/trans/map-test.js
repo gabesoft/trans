@@ -151,6 +151,18 @@ module.exports = function (util) {
               , t    = trans(o).map('.', nums).value();
             assert.deepEqual(t, [ 'one', 'two', 'three', 'four' ]);
         });
+
+        it('should fail if a null transformer is specified', function () {
+          assert.throws(function () {
+              trans({ a: 1 }).map(null);
+          }, /could not apply transformer null/i);
+        });
+
+        it('should fail if an invalid transformer is specified', function () {
+          assert.throws(function () {
+              trans({ a: 1 }).map(1);
+          }, /could not apply transformer 1/i);
+        });
     });
 
     describe('mapf', function () {
