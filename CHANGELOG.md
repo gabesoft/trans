@@ -1,3 +1,7 @@
+0.0.16
+-----
+Better error messages
+
 0.0.15
 -----
 Added uniq method to filter duplicates
