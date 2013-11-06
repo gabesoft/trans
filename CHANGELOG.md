@@ -1,3 +1,7 @@
+0.0.15
+-----
+Added uniq method to filter duplicates
+
 0.0.14
 -----
 More mapff fixes
