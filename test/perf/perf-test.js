@@ -194,4 +194,18 @@ module.exports = function (util) {
                .value();
         });
     });
+
+    describe('uniq', function () {
+        it('should get all contacts states distinct', function () {
+            var before = 0, after = 0;
+            trans(data)
+               .pluck('contacts.addresses.state')
+               .flatten(true)
+               .get(function (states) { before = states.length; })
+               .uniq()
+               .get(function (states) { after = states.length; })
+               .value();
+            util.inspect([ before, after ]);
+        });
+    });
 };

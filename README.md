@@ -116,6 +116,7 @@ After running the above code ``result`` will have the following value
 * [take(count)](#takefn)
 * [first()](#firstfn)
 * [last()](#lastfn)
+* [uniq(uniqField, *transformers)](#uniqfn)
 
 
 ## Methods (detail)
@@ -845,6 +846,34 @@ trans([ 1, 2, 4 ]).last().value();
 
 [Back to Index](#methodsindex)
 
+<a name="uniqfn" />
+### uniq(uniqField, *transformers)
+
+Removes duplicate items from an array according to the value at the specified field
+(possibly transformed).
+
+``` javascript
+trans([ 1, 1, 2 ]).uniq().value();
+```
+=> ``[ 1, 2 ]``
+
+``` javascript
+trans([ 1, 11, 12, 22 ]).uniq(null, [ mod, 10 ]).value();
+```
+=> ``[ 1, 12 ]``
+
+``` javascript
+trans([ { a: 'abc' }, { a: 'aab' }, { a: 'bcd' }, { a: 'bad' } ])
+    .uniq('a', [ 'charAt', 0 ])
+    .value();
+```
+=> ``[ { a: 'abc' }, { a: 'bcd' } ]``
+
+#### Other versions
+- ``uniqf(field, uniqField, *transformers)``
+- ``uniqff(source, destination, uniqField, *transformers)``
+
+[Back to Index](#methodsindex)
 
 ## Gotchas and Limitations
 

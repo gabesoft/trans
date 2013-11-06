@@ -1,7 +1,8 @@
 module.exports = function (util) {
     var trans  = util.trans
       , assert = util.assert
-      , add    = util.add;
+      , add    = util.add
+      , mod    = util.mod;
 
     describe('take', function () {
         it('should keep only the specified number of items from an array', function () {
@@ -142,6 +143,58 @@ module.exports = function (util) {
                 b: [ { c: 1 }, { c: 2 }, { c: 3 }, { c: 4 }, { c: 5 } ]
               , e: { c: 5 }
             } });
+        });
+    });
+
+    describe('uniq', function () {
+        it('should remove all duplicates according to the specified field', function () {
+            var o = [ { a: { b: 1 } }, { a: { b: '1' } }, { a: { b: 2 } }, { a: { b: 1 } }, { a: { b: 10 } } ]
+              , t = trans(o).uniq('a.b').value();
+            assert.deepEqual(t, [
+                { a: { b: 1 } }, { a: { b: '1' } }, { a: { b: 2 } }, { a: { b: 10 } }
+            ]);
+        });
+
+        it('should apply transformers and remove all duplicates', function () {
+            var o = [ { a: { b: 1 } }, { a: { b: '1' } }, { a: { b: 2 } }, { a: { b: 1 } }, { a: { b: 10 } } ]
+              , t = trans(o).uniq('a.b', parseInt).value();
+            assert.deepEqual(t, [
+                { a: { b: 1 } }, { a: { b: 2 } }, { a: { b: 10 } }
+            ]);
+        });
+
+        it('should not remove if the value is null or undefined', function () {
+            var o = [ { a: { b: 1 } }, { a: {} }, { a: { b: 2 } }, { a: {} }, { a: { b: 1 } } ]
+              , t = trans(o).uniq('a.b').value();
+            assert.deepEqual(t, [
+                { a: { b: 1 } }, { a: {} }, { a: { b: 2 } }, { a: {} }
+            ]);
+        });
+
+        it('should remove duplicates in an array of strings', function () {
+            var o = [ 'a', 'b', 'a', 'a', 'b', 'c', 'd', 'a', 'e' ]
+              , t = trans(o).uniq().value();
+            assert.deepEqual(t, [ 'a', 'b', 'c', 'd', 'e' ]);
+        });
+    });
+
+    describe('uniqf', function () {
+        it('should remove duplicates from the target array', function () {
+            var o = [
+                    { a: { b: [ 1, 1, 3, 4, 4, 11, 12, 99, 9, 3, 4 ] } }
+                  , { a: { b: [ 1, 1, 14, 4 ] } } ]
+              , t = trans(o).uniqf('a.b', null, [mod, 10]).value();
+            assert.deepEqual(t, [
+                { a: { b: [ 1, 3, 4, 12, 99 ] } }
+              , { a: { b: [ 1, 14 ] } } ]);
+        });
+    });
+
+    describe('uniqff', function () {
+        it('should remove duplicates from the target array and set it on the destination', function () {
+            var o = { a: [ 1, 1, 3 ] }
+              , t = trans(o).uniqff('a', 'b').value();
+            assert.deepEqual(t, { a: [ 1, 1, 3 ], b: [ 1, 3 ] });
         });
     });
 };
