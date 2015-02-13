@@ -7,6 +7,10 @@ _/  |_____________    ____   ______
                   \/     \/     \/ 
 ```
 
+[![Latest Stable Version](https://img.shields.io/npm/v/trans.svg?style=flat-square)](https://www.npmjs.com/package/trans)
+[![NPM Downloads](https://img.shields.io/npm/dm/trans.svg?style=flat-square)](https://www.npmjs.com/package/trans)
+
+
 *The ultimate object transformer*
 
 ## Install
