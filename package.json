@@ -1,27 +1,26 @@
 {
-    "author": {
-        "email": "gabesoft@gmail.com",
-        "name": "Gabriel Adomnicai"
-    },
-    "bin": {},
-    "dependencies": {},
-    "description": "The ultimate object transformer",
-    "devDependencies": {
-        "Faker": "~0.5.11",
-        "eyes": "~0.1.8",
-        "mocha": "~1.9.0",
-        "range.js": "~1.1.0"
-    },
-    "license": "MIT",
-    "main": "./lib/index.js",
-    "name": "trans",
-    "preferGlobal": false,
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:gabesoft/trans.git"
-    },
-    "scripts": {
-        "test": "node_modules/.bin/mocha -u tdd --check-leaks -R spec test/trans/index-test.js"
-    },
-    "version": "0.0.16"
+  "author": {
+    "email": "gabesoft@gmail.com",
+    "name": "Gabriel Adomnicai"
+  },
+  "bin": {},
+  "dependencies": {},
+  "description": "The ultimate object transformer",
+  "devDependencies": {
+    "Faker": "^0.7.2",
+    "mocha": "^2.3.4",
+    "range.js": "^1.1.0"
+  },
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "name": "trans",
+  "preferGlobal": false,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:gabesoft/trans.git"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha -u tdd --check-leaks -R spec test/trans/index-test.js"
+  },
+  "version": "0.0.16"
 }
