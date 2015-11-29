@@ -1,3 +1,7 @@
+0.1.0
+-----
+Added count method
+
 0.0.16
 -----
 Better error messages
