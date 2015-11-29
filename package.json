@@ -23,5 +23,5 @@
   "scripts": {
     "test": "node_modules/.bin/mocha -u tdd --check-leaks -R spec test/trans/index-test.js"
   },
-  "version": "0.1.0"
+  "version": "0.1.1"
 }

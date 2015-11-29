@@ -1,3 +1,7 @@
+0.1.1
+-----
+Fixed tests
+
 0.1.0
 -----
 Added count method
