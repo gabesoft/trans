@@ -1,3 +1,7 @@
+0.1.2
+-----
+Clone date objects properly
+
 0.1.1
 -----
 Fixed tests
