@@ -224,6 +224,17 @@ module.exports = function (util) {
                     }
                 ] ]);
         });
+
+        it('should clone dates', function () {
+            var date1 = new Date()
+              , date2 = new Date()
+              , o = { a: { b: 1, c: date1 }, e: 2, f: date2 }
+              , t = trans(o).omit('a.b', 'e').value();
+            assert.strictEqual(
+                util.stringify(t)
+              , util.stringify({ a: { c: date1 }, f: date2  }));
+        });
+
     });
 
     describe('omitf', function () {

@@ -1,6 +1,7 @@
 default: test
 
-MOCHA   = node_modules/.bin/mocha -u tdd --check-leaks
+MODULES = ./node_modules/.bin
+MOCHA = $(MODULES)/mocha -u tdd --check-leaks -R mocha-better-spec-reporter
 VERSION = $(shell node -pe 'require("./package.json").version')
 
 all: jshint test
@@ -18,13 +19,13 @@ tag-push: tag
 	@git push --tags origin HEAD:master
 
 test:
-	@NODE_ENV=test $(MOCHA) -R spec test/trans/index-test.js
+	@NODE_ENV=test $(MOCHA) test/trans/index-test.js
 
 test-slow:
-	@NODE_ENV=test $(MOCHA) -R spec test/perf/index-test.js --timeout 10000
+	@NODE_ENV=test $(MOCHA) test/perf/index-test.js --timeout 10000
 
 test-all:
-	@NODE_ENV=test $(MOCHA) -R spec test/trans/index-test.js test/perf/index-test.js --timeout 10000
+	@NODE_ENV=test $(MOCHA) test/trans/index-test.js test/perf/index-test.js --timeout 10000
 
 jshint:
 	jshint lib/**

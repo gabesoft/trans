@@ -10,6 +10,7 @@
     "Faker": "^0.7.2",
     "eyes": "^0.1.8",
     "mocha": "^2.3.4",
+    "mocha-better-spec-reporter": "^3.0.1",
     "range.js": "^1.1.0"
   },
   "license": "MIT",
